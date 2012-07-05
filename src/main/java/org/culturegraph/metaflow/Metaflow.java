@@ -61,14 +61,10 @@ public final class Metaflow {
 	private static Object buildPipeFromDescription(final String string) {
 		final String[] parts = PIPE_PATTERN.split(string);
 
-		Object element;
-
-		// element = PIPE_FACTORY.newInstance(parts[0]);
-
-		element = new StringSender(parts[0]);
-
+		Object element = new StringSender(parts[0]);
 		Object nextElement;
 		final Object startPoint = element;
+		
 		for (int i = 1; i < parts.length; ++i) {
 			final String part = parts[i];
 			final Matcher matcher = CONSTRUCTOR_PATTERN.matcher(part);
