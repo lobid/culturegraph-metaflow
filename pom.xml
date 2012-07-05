@@ -1,16 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.culturegraph</groupId>
-  <artifactId>metaflow</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  	<properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.culturegraph</groupId>
+	<artifactId>metaflow</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<targetJdk>1.6</targetJdk>
 		<junit.version>4.8.2</junit.version>
 	</properties>
-  
-  <dependencies>
+
+	<dependencies>
 
 		<!-- Testing -->
 		<dependency>
@@ -58,17 +59,6 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/assembly.xml</descriptor>
-					</descriptors>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.1</version>
 				<configuration>
@@ -79,11 +69,30 @@
 								used to specify that all needed libraries are found under lib/ directory. -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<!-- Specifies the main class of the application -->
-							<mainClass>org.culturegraph.metamorph.Read</mainClass>
+							<mainClass>org.culturegraph.metaflow.Metaflow</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+				<configuration>
+					<descriptors>
+						<descriptor>/src/main/assembly/assembly.xml</descriptor>
+					</descriptors>
+					<archive>
+						<manifest>
+							 <mainClass>org.culturegraph.metaflow.Metaflow</mainClass> 
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

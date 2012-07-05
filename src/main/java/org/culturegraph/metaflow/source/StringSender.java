@@ -20,8 +20,8 @@ public final class StringSender extends DefaultSender<ObjectReceiver<String>>
 	}
 	
 	@Override
-	public void process(final Object noUsed) {
-		if(noUsed==null){
+	public void process(final Object notUsed) {
+		if(notUsed==null){
 		getReceiver().process(string);
 		}else{
 			throw new IllegalArgumentException("Parameter not used. Must be null");

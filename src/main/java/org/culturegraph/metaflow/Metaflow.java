@@ -3,6 +3,7 @@ package org.culturegraph.metaflow;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.culturegraph.metaflow.source.StdInOpener;
 import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.annotation.Description;
 import org.culturegraph.metastream.annotation.In;
@@ -60,8 +61,13 @@ public final class Metaflow {
 
 	private static Object buildPipeFromDescription(final String string) {
 		final String[] parts = PIPE_PATTERN.split(string);
-
-		Object element = new StringSender(parts[0]);
+		Object element;
+		if(parts[0].isEmpty()){
+			element = new StdInOpener();
+		}else{
+			element = new StringSender(parts[0]);
+		}
+	
 		Object nextElement;
 		final Object startPoint = element;
 		
@@ -69,7 +75,7 @@ public final class Metaflow {
 			final String part = parts[i];
 			final Matcher matcher = CONSTRUCTOR_PATTERN.matcher(part);
 			final String name;
-			final String[] args;
+			final Object[] args;
 			if (matcher.matches()) {
 				name = matcher.group(1);
 				args = new String[] { matcher.group(2) };
