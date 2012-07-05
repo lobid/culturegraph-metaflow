@@ -8,6 +8,7 @@ import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.annotation.Description;
 import org.culturegraph.metastream.annotation.In;
 import org.culturegraph.metastream.annotation.Out;
+import org.culturegraph.metastream.framework.LifeCycle;
 import org.culturegraph.metastream.framework.ObjectReceiver;
 import org.culturegraph.metastream.framework.Sender;
 import org.culturegraph.util.CulturegraphUtilException;
@@ -87,7 +88,7 @@ public final class Metaflow {
 
 			if (element instanceof Sender) {
 				final Sender sender = (Sender) element;
-				sender.setReceiver(nextElement);
+				sender.setReceiver((LifeCycle) nextElement);
 			} else {
 				System.err.println("not a sender");
 			}
