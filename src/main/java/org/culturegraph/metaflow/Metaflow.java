@@ -8,7 +8,6 @@ import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.annotation.Description;
 import org.culturegraph.metastream.annotation.In;
 import org.culturegraph.metastream.annotation.Out;
-import org.culturegraph.metastream.framework.LifeCycle;
 import org.culturegraph.metastream.framework.ObjectReceiver;
 import org.culturegraph.metastream.framework.Sender;
 import org.culturegraph.util.CulturegraphUtilException;
@@ -35,7 +34,6 @@ public final class Metaflow {
 		} catch (CulturegraphUtilException e) {
 			// user properties are not mandatory, so just ignore
 		}
-
 	}
 
 	private Metaflow() {
@@ -50,52 +48,56 @@ public final class Metaflow {
 			printHelp();
 			System.exit(0);
 		}
-
-		final Object startPoint = buildPipeFromDescription(args[0]);
+		final ObjectReceiver<Object> startPoint = buildPipeFromDescription(args[0]);
 		startPipe(startPoint);
-
 	}
 
-	private static void startPipe(final Object startPoint) {
-		((ObjectReceiver<String>) startPoint).process(null);
+	
+	private static void startPipe(final ObjectReceiver<Object> startPoint) {
+		startPoint.process(null);
 	}
 
-	private static Object buildPipeFromDescription(final String string) {
+	private static ObjectReceiver<Object> buildPipeFromDescription(final String string) {
 		final String[] parts = PIPE_PATTERN.split(string);
 		Object element;
-		if(parts[0].isEmpty()){
-			element = new StdInOpener();
-		}else{
-			element = new StringSender(parts[0]);
+		final ObjectReceiver<Object> startPoint;
+		if (parts[0].isEmpty()) {
+			startPoint = new StdInOpener();
+		} else {
+			startPoint = new StringSender(parts[0]);
 		}
-	
-		Object nextElement;
-		final Object startPoint = element;
-		
+
+		element = startPoint;
+
 		for (int i = 1; i < parts.length; ++i) {
 			final String part = parts[i];
-			final Matcher matcher = CONSTRUCTOR_PATTERN.matcher(part);
-			final String name;
-			final Object[] args;
-			if (matcher.matches()) {
-				name = matcher.group(1);
-				args = new String[] { matcher.group(2) };
-			} else {
-				name = part;
-				args = new String[0];
-			}
-			nextElement = PIPE_FACTORY.newInstance(name, args);
-
-			if (element instanceof Sender) {
-				final Sender sender = (Sender) element;
-				sender.setReceiver((LifeCycle) nextElement);
-			} else {
-				System.err.println("not a sender");
-			}
-			element = nextElement;
+			element = addElement(element, part);
 		}
 
 		return startPoint;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private static Object addElement(final Object element, final String part) {
+		final Matcher matcher = CONSTRUCTOR_PATTERN.matcher(part);
+		final String name;
+		final Object[] args;
+		if (matcher.matches()) {
+			name = matcher.group(1);
+			args = new String[] { matcher.group(2) };
+		} else {
+			name = part;
+			args = new String[0];
+		}
+		final Object nextElement = PIPE_FACTORY.newInstance(name, args);
+
+		if (element instanceof Sender) {
+			final Sender sender = (Sender) element;
+			sender.setReceiver(nextElement);
+		} else {
+			System.err.println("not a sender");
+		}
+		return nextElement;
 	}
 
 	private static void printHelp() {
@@ -106,9 +108,11 @@ public final class Metaflow {
 			final Class<?> clazz = PIPE_FACTORY.getClass(name);
 			final Description desc = clazz.getAnnotation(Description.class);
 			System.err.println(name);
+			
 			if (desc != null) {
 				System.err.println("description:\t" + desc.value());
 			}
+			System.err.println("implementation:\t" + clazz.getCanonicalName());
 			String inString = "<unknown>";
 			String outString = "";
 			final In inClass = clazz.getAnnotation(In.class);
@@ -119,11 +123,11 @@ public final class Metaflow {
 			if (outClass != null) {
 				outString = outClass.value().getCanonicalName();
 			}
-			System.err.println("signiture:\t" + inString + " -> " + outString);
+			System.err.println("signature:\t" + inString + " -> " + outString);
 			System.err.println();
-			
-		}
-		System.err.println("Example: FILENAME | openFile | read(marc21) | morph(src/test/resources/morph/ingest.marc21.xml) | stdout");
-	}
 
+		}
+		System.err
+				.println("Example: FILENAME | openFile | read(marc21) | morph(src/test/resources/morph/ingest.marc21.xml) | stdout");
+	}
 }

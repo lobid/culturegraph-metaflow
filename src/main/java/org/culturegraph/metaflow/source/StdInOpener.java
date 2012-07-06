@@ -2,14 +2,12 @@ package org.culturegraph.metaflow.source;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
 import org.culturegraph.metastream.annotation.Description;
 import org.culturegraph.metastream.annotation.In;
 import org.culturegraph.metastream.annotation.Out;
-import org.culturegraph.metastream.framework.DefaultSender;
-import org.culturegraph.metastream.framework.ObjectPipe;
+import org.culturegraph.metastream.framework.DefaultObjectPipe;
 import org.culturegraph.metastream.framework.ObjectReceiver;
 
 /**
@@ -21,11 +19,10 @@ import org.culturegraph.metastream.framework.ObjectReceiver;
 @Description("Opens a file.")
 @In(String.class)
 @Out(java.io.Reader.class)
-public final class StdInOpener extends DefaultSender<ObjectReceiver<Reader>> implements
-		ObjectPipe<String, ObjectReceiver<Reader>> {
+public final class StdInOpener extends DefaultObjectPipe<Object, ObjectReceiver<java.io.Reader>> {
 
 	@Override
-	public void process(final String notUsed) {
+	public void process(final Object notUsed) {
 		if (notUsed == null) {
 			BufferedReader stdin;
 			try {

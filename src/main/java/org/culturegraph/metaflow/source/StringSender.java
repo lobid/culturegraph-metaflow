@@ -1,7 +1,6 @@
 package org.culturegraph.metaflow.source;
 
-import org.culturegraph.metastream.framework.DefaultSender;
-import org.culturegraph.metastream.framework.ObjectPipe;
+import org.culturegraph.metastream.framework.DefaultObjectPipe;
 import org.culturegraph.metastream.framework.ObjectReceiver;
 
 
@@ -10,8 +9,7 @@ import org.culturegraph.metastream.framework.ObjectReceiver;
  * 
  * @author Markus Michael Geipel
  */
-public final class StringSender extends DefaultSender<ObjectReceiver<String>> 
-		implements ObjectPipe<Object, ObjectReceiver<String>> {
+public final class StringSender extends DefaultObjectPipe<Object, ObjectReceiver<String>>{
 
 	private final String string;
 	
