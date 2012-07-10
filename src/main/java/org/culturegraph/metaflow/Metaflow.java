@@ -1,5 +1,7 @@
 package org.culturegraph.metaflow;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -50,14 +52,21 @@ public final class Metaflow {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(final String[] args) {
-		if (args.length != 1) {
+	public static void main(final String[] args) throws IOException {
+		final String flowDef;
+		if(args.length==1){
+			flowDef = args[0];
+		}else if(args.length==2 && "-f".equals(args[0])){
+			flowDef = ResourceUtil.loadTextFile(args[1]);
+		}else {
 			printHelp();
-			System.exit(0);
+			return;
 		}
-		final ObjectReceiver<Object> startPoint = buildPipeFromDescription(args[0]);
+		final ObjectReceiver<Object> startPoint = buildPipeFromDescription(flowDef);
 		startPipe(startPoint);
+		startPoint.closeStream();
 	}
 
 	
@@ -67,6 +76,10 @@ public final class Metaflow {
 
 	private static ObjectReceiver<Object> buildPipeFromDescription(final String string) {
 		final String[] parts = PIPE_PATTERN.split(string);
+		if(parts.length<2){
+			throw new IllegalArgumentException("Flow must contain at least two elements.");
+		}
+		
 		Object element;
 		final ObjectReceiver<Object> startPoint;
 		if (parts[0].isEmpty()) {
