@@ -110,7 +110,13 @@ public final class Metaflow {
 			name = part;
 			args = new String[0];
 		}
-		final LifeCycle nextElement = PIPE_FACTORY.newInstance(name, args);
+		
+		final LifeCycle nextElement;
+		if(PIPE_FACTORY.containsKey(name)){
+			nextElement = PIPE_FACTORY.newInstance(name, args);
+		}else{
+			nextElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), args) ;
+		}
 
 		if (element instanceof Sender) {
 			final Sender sender = (Sender) element;

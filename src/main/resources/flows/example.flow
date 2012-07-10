@@ -1,6 +1,7 @@
-https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=1021191485 | 
+1021191485|
+template(https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}) | 
 open(http)|
 read(marcxml)| 
 morph(src/test/resources/morph/ingest.marc21.xml)| 
-format-stream| 
+encode(pretty-print)|
 write(stdout)
