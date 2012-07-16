@@ -1,18 +1,17 @@
 grammar Metaflow;
 
-
 options {
   language = Java;
   output   = AST;
 }
 
 @header {
- package org.culturegraph.metaflow.parser;
-}
-@lexer::header {
-   package org.culturegraph.metaflow.parser;
+package org.culturegraph.metaflow.parser;
 }
 
+@lexer::header {
+package org.culturegraph.metaflow.parser;
+}
 
 flow
   :
@@ -32,18 +31,21 @@ pipeRef
 
 pipe
   :
-  pipeName ('(' pipeArgs ')')?
+  (
+   qualifiedName
+  )
+  ('(' pipeArgs ')')?
   ;
 
 pipeArgs
   :
   (
-    constructorArg
+    simpleArg
     | namedArg
   )+
   ;
 
-constructorArg
+simpleArg
   :
   StringLiteral
   ;
@@ -63,10 +65,12 @@ argValue
   StringLiteral
   ;
 
-pipeName
+qualifiedName
   :
-  Identifier
+  Identifier ('.' Identifier)*
   ;
+
+
 
 Identifier
   :

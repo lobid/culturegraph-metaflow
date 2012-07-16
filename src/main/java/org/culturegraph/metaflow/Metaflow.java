@@ -1,7 +1,6 @@
 package org.culturegraph.metaflow;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -139,7 +138,7 @@ public final class Metaflow {
 			describe(name);
 		}
 		System.err
-				.println("Example: FILENAME | open(file) | read(marc21) | morph(src/test/resources/morph/ingest.marc21.xml) | events-out");
+				.println("Example: FILENAME | open(file) | read(marc21) | morph(src/test/resources/morph/ingest.marc21.xml) | encode(pretty-print) | write(stdout)");
 	}
 
 	private static void describe(final String name) {

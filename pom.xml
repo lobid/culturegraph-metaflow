@@ -44,6 +44,11 @@
 			<artifactId>mediawiki</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>3.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>

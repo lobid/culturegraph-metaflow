@@ -1,0 +1,5 @@
+match-isbn-simple/scanner|
+from-hbase(borges)|
+morph(examples/morph/bundles.xml)|
+encode(literals)|
+write(file://isbnBundles.txt)

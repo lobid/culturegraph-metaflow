@@ -5,5 +5,3 @@
     <includeDerivedFiles>false</includeDerivedFiles>
     <violationsAsErrors>true</violationsAsErrors>
 </pmd>
-
-
