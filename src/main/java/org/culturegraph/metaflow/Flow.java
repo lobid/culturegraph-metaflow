@@ -22,55 +22,63 @@ public class Flow {
 	private static final String USER_POPERTIES_LOCATION = "metaflow-pipe-user.properties";
 
 	static {
-		PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(POPERTIES_LOCATION), LifeCycle.class);
+		PIPE_FACTORY.loadClassesFromMap(
+				ResourceUtil.loadProperties(POPERTIES_LOCATION),
+				LifeCycle.class);
 		try {
-			PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(USER_POPERTIES_LOCATION), LifeCycle.class);
+			PIPE_FACTORY.loadClassesFromMap(
+					ResourceUtil.loadProperties(USER_POPERTIES_LOCATION),
+					LifeCycle.class);
 		} catch (CulturegraphUtilException e) {
 			// user properties are not mandatory, so just ignore
 		}
 	}
-	
+
 	private LifeCycle element;
 	private ObjectReceiver<Object> start;
 
-//	public final void addElement(final String name) {
-//		addElement(name, new String[0]);
-//	}
+	// public final void addElement(final String name) {
+	// addElement(name, new String[0]);
+	// }
 
-	public final void addElement(final String name, final Map<String, String> args, final Object[] cArgs) {
-	
+	public final void addElement(final String name,
+			final Map<String, String> args, final Object[] cArgs) {
+
 		final LifeCycle nextElement;
-		if(PIPE_FACTORY.containsKey(name)){
+		if (PIPE_FACTORY.containsKey(name)) {
 			nextElement = PIPE_FACTORY.newInstance(name, args, cArgs);
 
-		}else{
-			nextElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), cArgs) ;
+		} else {
+			nextElement = ObjectFactory.newInstance(
+					ObjectFactory.loadClass(name, LifeCycle.class), cArgs);
 			ObjectFactory.applySetters(nextElement, args);
 		}
 		addElement(nextElement);
 	}
-	
-	public final void setStringStart(final String string){
+
+	public final void setStringStart(final String string) {
 		start = new StringSender(string);
 		element = start;
 	}
-	
-	public final void setStdInStart(){
+
+	public final void setStdInStart() {
 		start = new StdInOpener();
 		element = start;
 	}
-	
-	protected final void addElement(final LifeCycle nextElement){
+
+	protected final void addElement(final LifeCycle nextElement) {
 		if (element instanceof Sender) {
 			final Sender sender = (Sender) element;
 			sender.setReceiver(nextElement);
 		} else {
-			System.err.println(element.getClass().getCanonicalName() + "is not a sender");
+			System.err.println(element.getClass().getCanonicalName()
+					+ "is not a sender");
 		}
 		element = nextElement;
 	}
-	
-	public final void start(){
+
+	public final void start() {
 		start.process(null);
+		start.closeStream();
 	}
 }
