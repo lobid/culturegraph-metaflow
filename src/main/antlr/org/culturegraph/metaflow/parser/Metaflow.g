@@ -13,12 +13,52 @@ package org.culturegraph.metaflow.parser;
 package org.culturegraph.metaflow.parser;
 }
 
-flow
+@members {
+private org.culturegraph.metaflow.Flow flow = new org.culturegraph.metaflow.Flow();
+
+public org.culturegraph.metaflow.Flow getFlow() {
+	return flow;
+}
+}
+
+metaflow
   :
-  element+ ('|' element)* ';'
+  flow+
   ;
 
-element
+flow
+  :
+  (
+    stdIn
+    | inputString
+  )
+  (
+    '|'
+    (
+      pipe
+      | pipeRef
+    )
+  )+
+  ';'
+  ;
+
+inputString
+  :
+  s=StringLiteral 
+                  {
+                   flow.setStringStart($s.getText().substring(1, $s.getText().length() - 1));
+                  }
+  ;
+
+stdIn
+  :
+  '>' 
+      {
+       flow.setStdInStart();
+      }
+  ;
+
+flowElement
   :
   pipe
   | pipeRef
@@ -31,31 +71,47 @@ pipeRef
 
 pipe
   :
-  (
-   qualifiedName
-  )
-  ('(' pipeArgs ')')?
+  (qualifiedName) ('(' pipeArgs ')')? 
+                                      {
+                                       if ($pipeArgs.cArg == null) {
+                                       	flow.addElement($qualifiedName.text, new String[0]);
+                                       } else {
+                                       	flow.addElement($qualifiedName.text, new String[] { $pipeArgs.cArg });
+                                       }
+                                      }
   ;
 
-pipeArgs
+pipeArgs returns [String cArg]
   :
   (
-    simpleArg
+    simpleArg 
+              {
+               $cArg = $simpleArg.value;
+              }
     | namedArg
-  )+
+  )
+  (',' namedArg)*
   ;
 
-simpleArg
+simpleArg returns [String value]
   :
-  StringLiteral
+  StringLiteral 
+                {
+                 $value = $StringLiteral.getText().substring(1,
+                 		$StringLiteral.getText().length() - 1);
+                }
   ;
 
-namedArg
+namedArg returns [String key, String value]
   :
-  argName '=' argValue
+  argKey '=' argValue 
+                      {
+                       $key = $argKey.text;
+                       $value = $argValue.text;
+                      }
   ;
 
-argName
+argKey
   :
   Identifier
   ;
@@ -69,8 +125,6 @@ qualifiedName
   :
   Identifier ('.' Identifier)*
   ;
-
-
 
 Identifier
   :
@@ -86,6 +140,8 @@ Letter
   :
   'a'..'z'
   | 'A'..'Z'
+  | '-'
+  | '_'
   ;
 
 fragment

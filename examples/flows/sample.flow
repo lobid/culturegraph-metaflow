@@ -1,5 +1,5 @@
-match-isbn-simple/scanner|
+cg/row/BSZ-310970113|
 from-hbase(borges)|
-morph(examples/morph/bundles.xml)|
-encode(literals)|
-write(file://isbnBundles.txt)
+morph(matching/match-eki.xml)|
+encode(pretty-print)|
+write(stdout)
