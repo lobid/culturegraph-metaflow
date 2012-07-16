@@ -7,6 +7,10 @@ options {
 
 @header {
 package org.culturegraph.metaflow.parser;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import org.culturegraph.metaflow.Flow;
 }
 
 @lexer::header {
@@ -14,9 +18,9 @@ package org.culturegraph.metaflow.parser;
 }
 
 @members {
-private org.culturegraph.metaflow.Flow flow = new org.culturegraph.metaflow.Flow();
+private Flow flow = new Flow();
 
-public org.culturegraph.metaflow.Flow getFlow() {
+public Flow getFlow() {
 	return flow;
 }
 }
@@ -70,27 +74,43 @@ pipeRef
   ;
 
 pipe
+@init {
+Map<String, String> args = Collections.emptyMap();
+String[] cArg = new String[0];
+}
   :
-  (qualifiedName) ('(' pipeArgs ')')? 
-                                      {
-                                       if ($pipeArgs.cArg == null) {
-                                       	flow.addElement($qualifiedName.text, new String[0]);
-                                       } else {
-                                       	flow.addElement($qualifiedName.text, new String[] { $pipeArgs.cArg });
-                                       }
-                                      }
+  (qualifiedName) ('(' pipeArgs 
+                                {
+                                 if($pipeArgs.cArg!=null){
+                                    cArg= new String[]{$pipeArgs.cArg};
+                                  }
+                                  args = $pipeArgs.args;
+                                }
+    ')')? 
+          {
+           flow.addElement($qualifiedName.text, args, cArg);
+          }
   ;
 
-pipeArgs returns [String cArg]
+pipeArgs returns [String cArg, Map<String, String> args]
+@init {
+$args = new HashMap<String, String>();
+}
   :
   (
     simpleArg 
               {
                $cArg = $simpleArg.value;
               }
-    | namedArg
+    | a=namedArg 
+                 {
+                  $args.put($a.key, $a.value);
+                 }
   )
-  (',' namedArg)*
+  (',' b=namedArg 
+                {
+                 $args.put($b.key, $b.value);
+                })*
   ;
 
 simpleArg returns [String value]
@@ -107,7 +127,7 @@ namedArg returns [String key, String value]
   argKey '=' argValue 
                       {
                        $key = $argKey.text;
-                       $value = $argValue.text;
+                       $value = $argValue.value;
                       }
   ;
 
@@ -116,9 +136,13 @@ argKey
   Identifier
   ;
 
-argValue
+argValue returns [String value]
   :
-  StringLiteral
+  StringLiteral 
+                {
+                 $value = $StringLiteral.getText().substring(1,
+                 		$StringLiteral.getText().length() - 1);
+                }
   ;
 
 qualifiedName

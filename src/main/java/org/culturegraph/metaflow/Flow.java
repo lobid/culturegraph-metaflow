@@ -1,5 +1,7 @@
 package org.culturegraph.metaflow;
 
+import java.util.Map;
+
 import org.culturegraph.metaflow.source.StdInOpener;
 import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.framework.LifeCycle;
@@ -31,17 +33,19 @@ public class Flow {
 	private LifeCycle element;
 	private ObjectReceiver<Object> start;
 
-	public final void addElement(final String name) {
-		addElement(name, new String[0]);
-	}
+//	public final void addElement(final String name) {
+//		addElement(name, new String[0]);
+//	}
 
-	public final void addElement(final String name, final Object[] args) {
+	public final void addElement(final String name, final Map<String, String> args, final Object[] cArgs) {
 	
 		final LifeCycle nextElement;
 		if(PIPE_FACTORY.containsKey(name)){
-			nextElement = PIPE_FACTORY.newInstance(name, args);
+			nextElement = PIPE_FACTORY.newInstance(name, args, cArgs);
+
 		}else{
-			nextElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), args) ;
+			nextElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), cArgs) ;
+			ObjectFactory.applySetters(nextElement, args);
 		}
 		addElement(nextElement);
 	}
