@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import org.culturegraph.metaflow.Flow;
+import org.apache.commons.lang.StringEscapeUtils;
 }
 
 @lexer::header {
@@ -22,6 +23,10 @@ private Flow flow = new Flow();
 
 public Flow getFlow() {
 	return flow;
+}
+
+private static String toJavaString(String s){
+  return StringEscapeUtils.unescapeJava(s.substring(1,s.length()-1));
 }
 }
 
@@ -50,7 +55,7 @@ inputString
   :
   s=StringLiteral 
                   {
-                   flow.setStringStart($s.getText().substring(1, $s.getText().length() - 1));
+                   flow.setStringStart(toJavaString($s.text));
                   }
   ;
 
@@ -81,10 +86,10 @@ String[] cArg = new String[0];
   :
   (qualifiedName) ('(' pipeArgs 
                                 {
-                                 if($pipeArgs.cArg!=null){
-                                    cArg= new String[]{$pipeArgs.cArg};
-                                  }
-                                  args = $pipeArgs.args;
+                                 if ($pipeArgs.cArg != null) {
+                                 	cArg = new String[] { $pipeArgs.cArg };
+                                 }
+                                 args = $pipeArgs.args;
                                 }
     ')')? 
           {
@@ -98,51 +103,33 @@ $args = new HashMap<String, String>();
 }
   :
   (
-    simpleArg 
-              {
-               $cArg = $simpleArg.value;
-              }
+    s=StringLiteral 
+                    {
+                     $cArg = toJavaString($s.text);
+                    }
     | a=namedArg 
                  {
                   $args.put($a.key, $a.value);
                  }
   )
   (',' b=namedArg 
-                {
-                 $args.put($b.key, $b.value);
-                })*
-  ;
-
-simpleArg returns [String value]
-  :
-  StringLiteral 
-                {
-                 $value = $StringLiteral.getText().substring(1,
-                 		$StringLiteral.getText().length() - 1);
-                }
+                  {
+                   $args.put($b.key, $b.value);
+                  })*
   ;
 
 namedArg returns [String key, String value]
   :
-  argKey '=' argValue 
-                      {
-                       $key = $argKey.text;
-                       $value = $argValue.value;
-                      }
+  argKey '=' s=StringLiteral 
+                             {
+                              $key = $argKey.text;
+                              $value = toJavaString($s.getText());
+                             }
   ;
 
 argKey
   :
   Identifier
-  ;
-
-argValue returns [String value]
-  :
-  StringLiteral 
-                {
-                 $value = $StringLiteral.getText().substring(1,
-                 		$StringLiteral.getText().length() - 1);
-                }
   ;
 
 qualifiedName
@@ -176,15 +163,41 @@ Digit
 
 StringLiteral
   :
-  '"'
+  '"' EscapedString '"'
+  ;
+
+fragment
+EscapedString
+  :
   (
+    EscapeSequence
+    |
     ~(
-      '"'
-      | '\n'
+      '\\'
+      | '"'
       | '\r'
+      | '\n'
      )
   )*
-  '"'
+  ;
+
+fragment
+EscapeSequence
+  :
+  '\\'
+  (
+    'b'
+    | 't'
+    | 'n'
+    | 'f'
+    | 'r'
+    | '\"'
+    | '\''
+    | '\\'
+    | ('0'..'3') ('0'..'7') ('0'..'7')
+    | ('0'..'7') ('0'..'7')
+    | ('0'..'7')
+  )
   ;
 
 Whitespace

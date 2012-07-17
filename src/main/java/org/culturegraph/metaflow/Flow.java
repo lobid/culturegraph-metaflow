@@ -2,6 +2,7 @@ package org.culturegraph.metaflow;
 
 import java.util.Map;
 
+
 import org.culturegraph.metaflow.source.StdInOpener;
 import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.framework.LifeCycle;
@@ -33,6 +34,8 @@ public class Flow {
 			// user properties are not mandatory, so just ignore
 		}
 	}
+	
+	
 
 	private LifeCycle element;
 	private ObjectReceiver<Object> start;
@@ -43,7 +46,7 @@ public class Flow {
 
 	public final void addElement(final String name,
 			final Map<String, String> args, final Object[] cArgs) {
-
+		
 		final LifeCycle nextElement;
 		if (PIPE_FACTORY.containsKey(name)) {
 			nextElement = PIPE_FACTORY.newInstance(name, args, cArgs);
