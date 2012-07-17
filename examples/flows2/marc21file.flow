@@ -1,0 +1,5 @@
+"examples/data/10.marc21"|
+open("file")|
+read("marc21")|
+encode("pretty-print")|
+write("stdout");

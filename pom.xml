@@ -9,6 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<targetJdk>1.6</targetJdk>
 		<junit.version>4.8.2</junit.version>
+		<antlr.version>3.4</antlr.version>
 	</properties>
 
 	<dependencies>
@@ -19,6 +20,7 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+
 		</dependency>
 		<!-- Logging -->
 
@@ -44,11 +46,21 @@
 			<artifactId>mediawiki</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>3.4</version>
+			<artifactId>antlr-runtime</artifactId>
+			<version>${antlr.version}</version>
 		</dependency>
+
+
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.antlr</groupId> -->
+		<!-- <artifactId>antlr</artifactId> -->
+		<!-- <version>${antlr.version}</version> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 
@@ -68,42 +80,66 @@
 		</testResources>
 
 		<plugins>
+
 			<plugin>
-				<groupId>org.antlr</groupId>
-				<artifactId>antlr3-maven-plugin</artifactId>
-				<version>3.1.3-1</version>
-
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.4</version>
 				<executions>
-
 					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
 						<configuration>
-							<goals>
-								<goal>antlr</goal>
-							</goals>
-							<conversionTimeout>10000</conversionTimeout>
-							<debug>false</debug>
-							<dfa>false</dfa>
-							<nfa>false</nfa>
-							<excludes>
-								<exclude />
-							</excludes>
-							<includes>
-								<include />
-							</includes>
-							<libDirectory>src/main/antlr/imports</libDirectory>
-							<messageFormat>antlr</messageFormat>
-							<outputDirectory>target/generated-sources/antlr</outputDirectory>
-							<printGrammar>true</printGrammar>
-							<profile>false</profile>
-							<report>false</report>
-							<sourceDirectory>src/main/antlr</sourceDirectory>
-							<trace>false</trace>
-							<verbose>true</verbose>
+							<sources>
+								<source>src/main/antlr3</source>
+							</sources>
 						</configuration>
 					</execution>
 				</executions>
-
 			</plugin>
+
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.eclipse.m2e</groupId> -->
+<!-- 				<artifactId>lifecycle-mapping</artifactId> -->
+<!-- 				<version>1.0.0</version> -->
+<!-- 				<configuration> -->
+<!-- 					<lifecycleMappingMetadata> -->
+<!-- 						<pluginExecutions> -->
+<!-- 							<pluginExecution> -->
+<!-- 								<pluginExecutionFilter> -->
+<!-- 									<groupId>org.antlr</groupId> -->
+<!-- 									<artifactId>antlr3-maven-plugin</artifactId> -->
+<!-- 									<version>${antlr.version}</version> -->
+<!-- 									<goals> -->
+<!-- 										<goal>antlr</goal> -->
+<!-- 									</goals> -->
+<!-- 								</pluginExecutionFilter> -->
+<!-- 								<action> -->
+<!-- 									<execute /> -->
+<!-- 								</action> -->
+<!-- 							</pluginExecution> -->
+<!-- 						</pluginExecutions> -->
+<!-- 					</lifecycleMappingMetadata> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
+
+
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.antlr</groupId> -->
+<!-- 				<artifactId>antlr3-maven-plugin</artifactId> -->
+<!-- 				<version>${antlr.version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>antlr</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 
 			<plugin>
@@ -114,6 +150,7 @@
 					<source>${targetJdk}</source>
 					<target>${targetJdk}</target>
 					<showWarnings>true</showWarnings>
+					
 				</configuration>
 			</plugin>
 
