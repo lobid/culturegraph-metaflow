@@ -25,8 +25,8 @@ public Flow getFlow() {
 	return flow;
 }
 
-private static String toJavaString(String s){
-  return StringEscapeUtils.unescapeJava(s.substring(1,s.length()-1));
+private static String toJavaString(String s) {
+	return StringEscapeUtils.unescapeJava(s.substring(1, s.length() - 1));
 }
 }
 
@@ -41,14 +41,7 @@ flow
     stdIn
     | inputString
   )
-  (
-    '|'
-    (
-      pipe
-      | pipeRef
-    )
-  )+
-  ';'
+  ('|' pipe)+ ';'
   ;
 
 inputString
@@ -165,6 +158,8 @@ StringLiteral
   :
   '"' EscapedString '"'
   ;
+
+
 
 fragment
 EscapedString

@@ -1,5 +1,4 @@
-cg/row/BSZ-310970113|
+gnd_pers/row/118540238|
 from-hbase(borges)|
-morph(matching/match-eki.xml)|
 encode(pretty-print)|
 write(stdout)

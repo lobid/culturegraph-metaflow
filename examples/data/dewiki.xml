@@ -1,54 +1,137 @@
 <page>
-    <title>Alan Smithee</title>
-    <id>1</id>
+    <title>Kryptographisch sicherer Zufallszahlengenerator</title>
+    <ns>0</ns>
+
+    <id>1035818</id>
     <revision>
-      <id>91017124</id>
-      <timestamp>2011-07-09T00:29:30Z</timestamp>
+      <id>104207245</id>
+      <parentid>100659503</parentid>
+      <timestamp>2012-06-09T20:24:56Z</timestamp>
       <contributor>
-        <username>Geitost</username>
-        <id>527052</id>
+        <ip>92.78.7.94</ip>
+
       </contributor>
-      <minor />
-      <comment>[[WP:HC|HC]]: Entferne [[Kategorie:Sammelpseudonym]] (jetzt Oberkat)</comment>
-      <text xml:space="preserve">'''Alan Smithee''' ist ein [[Pseudonym]]. Es steht für einen fiktiven Regisseur, der in Filmen geführt wird, in denen der eigentliche [[Regisseur]] seinen Namen nicht mit dem Werk in Verbindung gebracht haben möchte. Von 1968 bis 2000 wurde es von der [[Directors Guild of America]] für solche Situationen empfohlen, seither ist es '''Thomas Lee'''.&lt;ref&gt;[[Los Angeles Times|latimes]].com: [http://articles.latimes.com/2000/jan/15/entertainment/ca-54271 ''Name of Director Smithee Isn't What It Used to Be''], zuletzt geprüft am 2. April 2011&lt;/ref&gt; ''Alan Smithee'', ein [[Anagramm]] für ''The Alias Men'', ist jedoch weiterhin in Gebrauch.
+      <comment>/* Nichtdeterministische CSRNG */</comment>
+      <sha1>9glsb2nfr103d7s8uehhwuix4j7bju0</sha1>
+      <text xml:space="preserve" bytes="9006">Ein '''kryptographisch sicherer [[Zufallszahlengenerator]]''' (auch kryptographisch geeigneter Zufallszahlengenerator, bzw. engl. ''cryptographically secure pseudo-random number generator'' ('''CSPRNG''')) ist ein für die [[Kryptologie]] geeigneter Generator für [[Pseudozufall]]szahlen. Solche [[Zufall]]szahlen werden in vielen Bereichen der Kryptologie benötigt wie zum Beispiel:
+* bei der [[Schlüssel (Kryptologie)|Schlüsselgenerierung]]
+* einmal genutzten Zahlen [[Nonce]]s
+* [[Stromverschlüsselung]]
+* [[Salt (Kryptologie)|Salt]]
 
-Alternative Schreibweisen sind unter anderem die Ursprungsvariante ''All&lt;u&gt;en&lt;/u&gt; Smithee'' sowie ''Alan Sm&lt;u&gt;y&lt;/u&gt;thee''  und ''A&lt;u&gt;dam&lt;/u&gt; Smithee''. Auch zwei teilweise asiatisch anmutende Schreibweisen ''Alan Smi Thee'' und ''Sumishii Aran'' sollen – so die [[Internet Movie Database]] – dazugehören.&lt;ref name=&quot;IMDb&quot;&gt;[http://www.imdb.com/name/nm0000647/ Eigener Eintrag für ''Alan Smithee'' in der IMDb]&lt;/ref&gt;
+Die Qualitätsanforderungen für die [[Zufall |Zufälligkeit]] solcher Zahlen sind sehr unterschiedlich. Für Nonces genügt es, die Einmaligkeit der [[Zahl]] im Zufallsexperiment zu garantieren, für die Erstellung eines Hauptschlüssels oder sogar eines One-Time-Pads sind die [[Anforderung]]en an die Zahl ungleich höher. So bleibt ein One-Time-Pad in der [[Theorie]] nur unknackbar, wenn er aus natürlichen [[Zufallszahl]]en erstellt wurde.
 
-== Geschichte ==
-=== Entstehung ===
-Das Pseudonym entstand 1968 infolge der Arbeiten am Western-Film ''Death of a Gunfighter'' (deutscher Titel ''[[Frank Patch – Deine Stunden sind gezählt]]''). Regisseur [[Robert Totten]] und Hauptdarsteller [[Richard Widmark]] gerieten in einen Streit, woraufhin [[Don Siegel]] als neuer Regisseur eingesetzt wurde.
+Grundsätzlich sind für einen CSPRNG dieselben Voraussetzungen wie für einen normalen Pseudozufallszahlengenerator vonnöten, nur dass für die Sicherheit noch einige zusätzliche Bedingungen erfüllt sein müssen. Die von ihm erzeugte Zahlenfolge sollte für einen Beobachter nicht von einer echten Zufallszahlenfolge unterscheidbar sein. Außerdem sollte für einen Beobachter sein interner Zustand geheim bleiben, d.&amp;nbsp;h. der Generator stellt eine [[Black Box (Systemtheorie)|Black Box]] dar.
 
-Der Film trug nach Abschluss der Arbeiten noch deutlich Tottens [[Manier (Stil)|Handschrift]], der auch mehr Drehtage als Siegel daran gearbeitet hatte, weshalb dieser die Nennung seines Namens als Regisseur ablehnte. Totten selbst lehnte aber ebenfalls ab. Als Lösung wurde ''Allen Smithee'' gewählt, der in den Kritiken u.&amp;nbsp;a. von [[Roger Ebert]] mit den Worten gelobt wurde: „Director Allen Smithee, a name I’m not familiar with, allows his story to unfold naturally. He never preaches, and he never lingers on the obvious. His characters do what they have to do.“&lt;ref&gt;rogerebert.[[Chicago Sun-Times|suntimes]].com: [http://rogerebert.suntimes.com/apps/pbcs.dll/article?AID=/19690512/REVIEWS/905120301/1023 ''Death of a Gunfighter''], zuletzt geprüft am 2. April 2011&lt;/ref&gt;
+== Nichtdeterministische CSRNG ==
 
-=== Aufdeckung und Abkehr ===
-1997 kam die Parodie ''An Alan Smithee Film: Burn Hollywood Burn'' (deutscher Titel ''[[Fahr zur Hölle Hollywood]]'') in die Kinos, was das Pseudonym einem größeren Publikum bekannt machte, nicht zuletzt weil [[Arthur Hiller]], der eigentliche Regisseur des Films, selbst seinen Namen zurückzog und analog zum Filmtitel das Pseudonym ''Alan Smithee'' benutzte. Der Film gilt als einer der schlechtesten Filme der 1990er Jahre und gewann fünf [[Goldene Himbeere]]n.
+Im Idealfall wird die Erstellung solcher Zufallszahlen durch andere zufällige [[Information]]squellen gespeist. Das kann zum Beispiel ein hardwarebasierter Zufallsgenerator sein kann, aber auch nicht vorhersehbare Zustände in bestimmten Prozessen des [[System]]s. Theoretisch kann die Entropie, einer aus solchen Initialdaten generierten Zufallszahl, nicht höher sein als die Ausgangswerte selbst.
 
-Der Film ''[[Supernova (2000)|Supernova]]'' als der erste Post-Smithee-Film, dort führte ein gewisser ''Thomas Lee'' alias [[Walter Hill]] die Regie.
-&lt;!-- fand nur einen für den von 1990, siehe ''[[Das Kindermädchen]]'':
-„Smithee wurde allerdings auch nach ''Supernova'' gesichtet, in einem Film namens ''The Guardian''.“
---&gt;
+Für kryptologische Anwendungen sollten nicht-deterministische Generatoren verwendet werden. Nur sie können echte Zufälligkeit garantieren und sind weiterhin nicht reproduzierbar.
 
-== Verwendung ==
-Die Verwendung des Namens ist streng reglementiert: Die Directors Guild of America schreibt vor, dass bei jedem Film ein Regisseur im Abspann steht. Bei nachweislich stark gegen den Willen des Regisseurs veränderten Filmen darf das [[Pseudonym]] Alan Smithee verwendet werden. Die Anwendung ist streng auf diesen Fall begrenzt; so durfte [[Tony Kaye (Regisseur)|Tony Kaye]] den Namen Smithee bei dem Film ''[[American History X]]'' nicht einsetzen, obwohl er den Antrag stellte. 
+:''Siehe auch: [[Zufallszahlengenerator#Physikalischer_Zufallszahlengenerator|physikalischer Zufallszahlengenerator]]
 
-Auch bei nicht-US-amerikanischen Produktionen wird der Name verwendet, wie etwa beim [[Pilotfilm]] der Fernsehserie ''[[Schulmädchen (Fernsehserie)|Schulmädchen]]''. 2007 sendete die ARD am 8. und 9. August den zweiteiligen TV-Film ''Paparazzo''. Auch in diesem Werk erscheint anstatt des eigentlichen Regisseurs [[Stephan Wagner (Regisseur)|Stephan Wagner]] Alan Smithee im Abspann.
+== Deterministische CS(P)RNG ==
 
-Zu den Regisseuren, die das Pseudonym benutzt haben, gehören:
-* [[Don Siegel]] und [[Robert Totten]] (für ''[[Frank Patch – Deine Stunden sind gezählt]]''),
-* [[David Lynch]] (für die dreistündige Fernsehfassung von ''[[Der Wüstenplanet (Film)|Der Wüstenplanet]]''),
-* [[Chris Christensen]] (''The Omega Imperative''),
-* [[Stuart Rosenberg]] (für ''Let’s Get Harry''),
-* [[Richard C. Sarafian]] (für ''[[Starfire]]''),
-* [[Dennis Hopper]] (für ''[[Catchfire]]''),
-* [[Arthur Hiller]] (für ''[[An Alan Smithee Film: Burn Hollywood Burn]]''),
-* [[Rick Rosenthal]] (''Birds II'') und
-* [[Kevin Yagher]] (''[[Hellraiser IV – Bloodline]]'').
+Unter Umständen ist der Einsatz eines nicht-deterministischen Generators nicht möglich oder zu langsam. In diesem Fall greift man auf einen deterministischen, kryptologisch sicheren Pseudozufallszahlen-Generator zurück.
+Dieser kann auf [[Blockchiffre|Block]]- oder [[Stromchiffre|Stromverschlüsselung]], einer [[Kryptologische_Hashfunktion|sicheren Hash-Funktion]] oder anderen [[NP-Schwere|mathematisch harten]] Problemen basieren.
 
-[[ru:Алан Смити]]
-[[sq:Alan Smithee]]
-[[sv:Alan Smithee]]</text>
+=== Kryptologische Generatoren ===
+
+Eine Verschlüsselungs- oder Hash-Funktion kann im sog. [[Counter Mode|Counter]]- oder [[Output Feedback Mode|Output-Feedback-Modus]] betrieben werden. Hierbei ist kritisch, dass es nicht möglich ist den Anfangszustand herauszufinden. Den internen Zustand des Generators zu ermitteln ist dann gleichbedeutend damit, die Verschlüsselung selbst zu „knacken“.&lt;ref name=&quot;nist_sp800_90a&quot; /&gt;
+
+Die hierbei generierte Zahl ist kryptologisch sicher und pseudozufällig (soweit es auch die verwendetete Funktion garantiert). Generatoren die auf bewährten Funktionen basieren, wie z. B. [[Advanced Encryption Standard|AES]] oder [[SHA-1]], bestehen alle gängigen statistischen Tests auf Zufälligkeit.&lt;ref name=&quot;testu01_paper&quot; /&gt;
+
+=== Zahlentheoretische Generatoren ===
+
+==== Blum-Blum-Shub-Generator ====
+Der [[Blum-Blum-Shub|BBS]]-Generator beruht auf der Annahme, dass Faktorisierung von Ganzzahlen ein schwieriges Problem ist, das nicht in polynomieller Zeit gelöst werden kann.
+
+==Beispiele==
+
+[[RC4]] ist ein Stromchiffrieralgorithmus, das als CSPRNG gebraucht wird. Zu dieser Gruppe zählt auch ISAAC.&lt;ref&gt;http://burtleburtle.net/bob/rand/isaac.html&lt;/ref&gt;
+
+===ANSI X9.17===
+
+Dieser Pseudozufallszahlengenerator beruht auf [[Triple-DES]], einem Blockverschlüsselungsverfahren.
+
+===FIPS-186-Generator===
+
+Der in FIPS-186 standardisierte Generator verwendet eine Einwegfunktion, die wahlweise auf der Hash-Funktion [[SHA-1]] oder der Blockchiffre [[Data Encryption Standard|DES]] basiert, um Schlüssel und zufällige Geheimnisse für das Signieren mit dem [[Digital Signature Algorithm]] zu erzeugen.
+
+==Tests auf Zufälligkeit==
+{{Überarbeiten}}
+
+===FIPS 140===
+
+In diesem Standard ist eine Test-Suite für CSPRNG aufgeführt. Dazu werden 20000 Ausgabebits verschiedenen statistischen Tests unterworfen:
+
+*[[Monobit-Test]]
+*[[Pokertest]]
+*[[Run-Test]]
+*Long-Run-Test (ein Run mit &gt;34 Bits fällt durch)
+
+===Maurer's Universal Test===
+
+Die Idee hinter diesem Test ist, dass es nicht möglich sein sollte, eine Zufallszahlenfolge signifikant zu [[Datenkompression|komprimieren]].
+
+===Marsaglias Diehard Testsuite===
+Umfangreiche Testsuite, u.&amp;nbsp;a.:
+;Birthday Spacings Test (Geburtstagsabstände)
+:wählt zufällige Punkte auf einem Intervall. Diese sollten [[Poisson-Verteilung|Poisson-verteilt]] sein. Das Prinzip des Tests ist verwandt dem [[Geburtstagsparadox]].
+;Overlapping Permutations (überlappende Permutationen)
+:untersucht jeweils fünf aufeinanderfolgende (Integer-)Zahlen auf Gleichverteilung. Diese können 5!=120 verschiedene Anordnungen haben, die gleichwahrscheinlich sind.
+;Binary Rank Test (binärer Rangtest)
+:bildet aus den Bits der zu testenden Zahlenfolge zufällige Matrizen, berechnet deren [[Rang (Mathematik)|Ränge]]. Darauf wird ein Chi-Quadrat-Test angewandt.
+;Bitstream Test (Bitfolgen-Test)
+:betrachtet die zu testende Zahlenfolge als Bitfolgen aus jeweils 20-Bit-&quot;Worten&quot;, die sich überlappen. Es gibt 2&lt;sup&gt;21&lt;/sup&gt; sich überlappende 20-Bit-Worte und 2&lt;sup&gt;20&lt;/sup&gt; mögliche 20-Bit-Worte. Der Test zählt die fehlenden 20-Bit-Worte. Diese sollten annähernd [[Normalverteilung|normalverteilt]] sein.
+;Count-The-1s Test (Zähle die Einsen)
+:untersucht Bytefolgen. Er zählt die &quot;1&quot;-Bits in den Bytefolgen und vergleicht die erhaltenen Werte mit den statistisch zu erwartenden Werten.
+;Parking Lot Test (Parkplatztest)
+:platziert zufällig Einheitskreise in ein 100x100 Quadrat. Die Anzahl der n=12000 &quot;geparkten&quot; Kreise sollte einer [[Normalverteilung]] folgen.
+;Minimum Distance Test (Minimaler Abstand)
+:platziert n=8000 Punkte in ein 10000x10000 Punkte Quadrat. Dann wird der kleinste Abstand zwischen den Punktepaaren bestimmt. Der Quadrat dieser Abstände sollte [[Exponential-Verteilung|exponentialverteilt]] sein.
+;3D Spheres Test (3D-Kugel-Test)
+:platziert zufällig n=4000 Punkte in einen Würfel der Kantenlänge 1000. Danach wird um jeden Punkt eine Kugel mit dem Radius (Mittelpunkt, Punkt mit minimalem Abstand) gebildet. Das kleinste Kugelvolumen sollte einer [[Exponential-Verteilung]] folgen.
+;[[Run-Test|Runs Test]]
+:entnimmt n Kugeln aus einer Urne mit zwei verschiedenen Kugelsorten. Gleichfarbige nacheinanderfolgend gezogene Kugeln werden zu einem Zug (&quot;Run&quot;) zusammengefasst. Die Anzahl der übriggebliebenen Züge soll der einer echten Zufallsziehung zur gegebenen Länge n entsprechen.
+;Craps Test
+:wendet eine Teststatistik auf 200000 [[Craps]]-Spiele an
+
+==Standards==
+
+Viele Designs von CSPRNGs  wurden standardisiert und sind dokumentiert in:
+* [[Federal Information Processing Standard|FIPS]] 186-2&lt;ref&gt;[http://csrc.nist.gov/publications/fips/fips186-2/fips186-2-change1.pdf DIGITAL SIGNATURE STANDARD (DSS)], Januar 2000&lt;/ref&gt;
+
+* [[American National Standards Institute|ANSI]] X9.17-1985 [[Addendum|Appendix]] C
+* ANSI X9.31-1998 Appendix A.2.4
+* ANSI X9.62-1998 Annex A.4
+
+== Einzelnachweise ==
+&lt;references&gt;
+&lt;ref name=&quot;nist_sp800_90a&quot;&gt;[http://csrc.nist.gov/publications/nistpubs/800-20/800-20.pdf NIST 800-20]&lt;/ref&gt;
+&lt;ref name=&quot;testu01_paper&quot;&gt;Pierre L'Ecuyer, Richard Simard: ''[http://dl.acm.org/citation.cfm?doid=1268776.1268777 TestU01 Paper]''&lt;/ref&gt;
+&lt;/references&gt;
+
+==Literatur==
+* Alfred J. Menezes, Paul C. van Oorschot, Scott A. Vanstone: ''Handbook of Applied Cryptography.'' CRC Press, Boca Raton FL u. a. 1997, ISBN 0-8493-8523-7 (''CRC Press Series on Discrete Mathematics and its Applications''), Kapitel 5.
+
+== Weblinks ==
+*[http://csrc.nist.gov/CryptoToolkit/tkrng.html Referenz für CSPRNG] (englisch)
+*[http://csrc.nist.gov/groups/ST/toolkit/rng/stats_tests.html Testsuite]
+*[http://www.stat.fsu.edu/pub/diehard Diehard Testsuite]
+* [http://users.telenet.be/d.rijmenants/en/numbersgen.htm Zufallszahlengenerator zur Erzeugung von [[One-Time-Pad]]s (englisch)]
+
+[[Kategorie:Kryptologisches Verfahren]]
+[[Kategorie:Pseudozufallszahlengenerator]]
+
+[[en:Cryptographically secure pseudorandom number generator]]
+[[es:Generador de números pseudo-aleatorios criptográficamente seguro]]
+[[he:מחולל פסבדו אקראי קריפטוגרפי]]
+[[it:Generatore di numeri pseudocasuali crittograficamente sicuro]]
+[[ja:暗号論的擬似乱数生成器]]
+[[pt:CSPRNG]]
+[[ru:Криптографически стойкий генератор псевдослучайных чисел]]</text>
+
     </revision>
   </page>
-  
-  
-  

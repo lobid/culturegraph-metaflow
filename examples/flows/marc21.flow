@@ -2,5 +2,6 @@
 template(https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}) | 
 open(http)|
 read(marcxml)|
+flatten|
 encode(pretty-print)|
 write(stdout)
