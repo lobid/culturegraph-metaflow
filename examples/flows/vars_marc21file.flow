@@ -1,0 +1,11 @@
+//example with variables
+
+def file = "10.marc21";
+def path = "examples/data/" + file;
+def o = "out";
+
+path|
+open("file")|
+read("marc21")|
+encode("pretty-print")|
+write("std" + o);

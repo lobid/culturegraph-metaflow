@@ -32,17 +32,16 @@ metaflow
 
 varDef
   :
-  'def ' i=Identifier ('=' StringLiteral)?
+  'def ' i=Identifier ('=' exp)? ';'
     ->
-      ^(DEF Identifier StringLiteral)
+      ^(DEF Identifier exp?)
   ;
-  
 
 flow
   :
   (
     StdIn
-    | StringLiteral
+    | exp
   )
   ('|'! pipe)+ ';'!
   ;
@@ -59,10 +58,24 @@ pipe
       ^(QualifiedName[$qualifiedName.text] pipeArgs*)
   ;
 
+exp
+  :
+  atom
+  | atom '+' atom
+    ->
+      ^('+' atom atom)
+  ;
+
+atom
+  :
+  StringLiteral
+  | Identifier
+  ;
+
 pipeArgs
   :
   (
-    StringLiteral
+    exp
     | namedArg
   )
   (','! namedArg)*
@@ -70,9 +83,9 @@ pipeArgs
 
 namedArg
   :
-  Identifier '=' StringLiteral
+  Identifier '=' exp
     ->
-      ^(ARG Identifier StringLiteral)
+      ^(ARG Identifier exp)
   ;
 
 qualifiedName

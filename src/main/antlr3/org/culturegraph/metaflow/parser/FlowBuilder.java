@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 15:50:38
+// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 16:59:36
 
 package org.culturegraph.metaflow.parser;
 
@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 import org.culturegraph.metaflow.Flow;
+import org.culturegraph.metaflow.MetaFlowException;
 
 
 import org.antlr.runtime.*;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class FlowBuilder extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "DEF", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "StartString", "StdIn", "StringLiteral", "UnicodeEscape", "WS", "'('", "')'", "','", "'.'", "';'", "'='", "'def '", "'|'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "DEF", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "StartString", "StdIn", "StringLiteral", "UnicodeEscape", "WS", "'('", "')'", "'+'", "','", "'.'", "';'", "'='", "'def '", "'|'"
     };
 
     public static final int EOF=-1;
@@ -29,6 +30,7 @@ public class FlowBuilder extends TreeParser {
     public static final int T__24=24;
     public static final int T__25=25;
     public static final int T__26=26;
+    public static final int T__27=27;
     public static final int ARG=4;
     public static final int DEF=5;
     public static final int Digit=6;
@@ -65,28 +67,35 @@ public class FlowBuilder extends TreeParser {
 
 
     Flow flow = new Flow();
+    Map<String, String> vars = new HashMap<String, String>();
 
 
 
     // $ANTLR start "metaflow"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:22:1: metaflow returns [Flow flow] : flow ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:24:1: metaflow returns [Flow flow] : varDefs flow ;
     public final Flow metaflow() throws RecognitionException {
         Flow flow = null;
 
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:23:3: ( flow )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:24:3: flow
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:25:3: ( varDefs flow )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:26:3: varDefs flow
             {
-            pushFollow(FOLLOW_flow_in_metaflow70);
+            pushFollow(FOLLOW_varDefs_in_metaflow70);
+            varDefs();
+
+            state._fsp--;
+
+
+            pushFollow(FOLLOW_flow_in_metaflow72);
             flow();
 
             state._fsp--;
 
 
 
-                     flow = this.flow;
-                     
+                            flow = this.flow;
+                           
 
             }
 
@@ -105,37 +114,161 @@ public class FlowBuilder extends TreeParser {
 
 
 
-    // $ANTLR start "flow"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:30:1: flow : ( StdIn |sl= StringLiteral ) ( pipe )+ ;
-    public final void flow() throws RecognitionException {
-        CommonTree sl=null;
+    // $ANTLR start "varDefs"
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:1: varDefs : ( varDef )* ;
+    public final void varDefs() throws RecognitionException {
+        try {
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:33:3: ( ( varDef )* )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:34:3: ( varDef )*
+            {
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:34:3: ( varDef )*
+            loop1:
+            do {
+                int alt1=2;
+                int LA1_0 = input.LA(1);
+
+                if ( (LA1_0==DEF) ) {
+                    alt1=1;
+                }
+
+
+                switch (alt1) {
+            	case 1 :
+            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:34:3: varDef
+            	    {
+            	    pushFollow(FOLLOW_varDef_in_varDefs105);
+            	    varDef();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop1;
+                }
+            } while (true);
+
+
+
+                       
+                      
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+
+        finally {
+        	// do for sure before leaving
+        }
+        return ;
+    }
+    // $ANTLR end "varDefs"
+
+
+
+    // $ANTLR start "varDef"
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:40:1: varDef : ^( DEF name= Identifier (e= exp )? ) ;
+    public final void varDef() throws RecognitionException {
+        CommonTree name=null;
+        String e =null;
+
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:31:3: ( ( StdIn |sl= StringLiteral ) ( pipe )+ )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:3: ( StdIn |sl= StringLiteral ) ( pipe )+
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:41:3: ( ^( DEF name= Identifier (e= exp )? ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:42:3: ^( DEF name= Identifier (e= exp )? )
             {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:3: ( StdIn |sl= StringLiteral )
-            int alt1=2;
-            int LA1_0 = input.LA(1);
+            match(input,DEF,FOLLOW_DEF_in_varDef135); 
 
-            if ( (LA1_0==StdIn) ) {
-                alt1=1;
+            match(input, Token.DOWN, null); 
+            name=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_varDef139); 
+
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:42:26: (e= exp )?
+            int alt2=2;
+            int LA2_0 = input.LA(1);
+
+            if ( (LA2_0==Identifier||LA2_0==StringLiteral||LA2_0==21) ) {
+                alt2=1;
             }
-            else if ( (LA1_0==StringLiteral) ) {
-                alt1=2;
+            switch (alt2) {
+                case 1 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:42:26: e= exp
+                    {
+                    pushFollow(FOLLOW_exp_in_varDef143);
+                    e=exp();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+
+            match(input, Token.UP, null); 
+
+
+
+                vars.put((name!=null?name.getText():null), e);
+                
+                //System.out.println("put " + (name!=null?name.getText():null) + "=" + $value.text);
+               
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+
+        finally {
+        	// do for sure before leaving
+        }
+        return ;
+    }
+    // $ANTLR end "varDef"
+
+
+
+    // $ANTLR start "flow"
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:51:1: flow : ( StdIn |e= exp ) ( pipe )+ ;
+    public final void flow() throws RecognitionException {
+        String e =null;
+
+
+        try {
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:52:3: ( ( StdIn |e= exp ) ( pipe )+ )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:3: ( StdIn |e= exp ) ( pipe )+
+            {
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:3: ( StdIn |e= exp )
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0==StdIn) ) {
+                alt3=1;
+            }
+            else if ( (LA3_0==Identifier||LA3_0==StringLiteral||LA3_0==21) ) {
+                alt3=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 1, 0, input);
+                    new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt1) {
+            switch (alt3) {
                 case 1 :
-                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:33:5: StdIn
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:54:5: StdIn
                     {
-                    match(input,StdIn,FOLLOW_StdIn_in_flow103); 
+                    match(input,StdIn,FOLLOW_StdIn_in_flow174); 
 
 
                                flow.setStdInStart();
@@ -144,13 +277,17 @@ public class FlowBuilder extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:37:7: sl= StringLiteral
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:58:7: e= exp
                     {
-                    sl=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_flow126); 
+                    pushFollow(FOLLOW_exp_in_flow197);
+                    e=exp();
+
+                    state._fsp--;
 
 
-                                           flow.setStringStart((sl!=null?sl.getText():null));
-                                           
+
+                                 flow.setStringStart(e);
+                                
 
                     }
                     break;
@@ -158,23 +295,23 @@ public class FlowBuilder extends TreeParser {
             }
 
 
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:42:3: ( pipe )+
-            int cnt2=0;
-            loop2:
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:63:3: ( pipe )+
+            int cnt4=0;
+            loop4:
             do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                int alt4=2;
+                int LA4_0 = input.LA(1);
 
-                if ( (LA2_0==QualifiedName) ) {
-                    alt2=1;
+                if ( (LA4_0==QualifiedName) ) {
+                    alt4=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt4) {
             	case 1 :
-            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:43:5: pipe
+            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:64:5: pipe
             	    {
-            	    pushFollow(FOLLOW_pipe_in_flow166);
+            	    pushFollow(FOLLOW_pipe_in_flow226);
             	    pipe();
 
             	    state._fsp--;
@@ -184,12 +321,12 @@ public class FlowBuilder extends TreeParser {
             	    break;
 
             	default :
-            	    if ( cnt2 >= 1 ) break loop2;
+            	    if ( cnt4 >= 1 ) break loop4;
                         EarlyExitException eee =
-                            new EarlyExitException(2, input);
+                            new EarlyExitException(4, input);
                         throw eee;
                 }
-                cnt2++;
+                cnt4++;
             } while (true);
 
 
@@ -210,11 +347,122 @@ public class FlowBuilder extends TreeParser {
 
 
 
+    // $ANTLR start "exp"
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:68:1: exp returns [String value] : (s= StringLiteral |id= Identifier | ^( '+' e1= exp e2= exp ) );
+    public final String exp() throws RecognitionException {
+        String value = null;
+
+
+        CommonTree s=null;
+        CommonTree id=null;
+        String e1 =null;
+
+        String e2 =null;
+
+
+        try {
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:69:3: (s= StringLiteral |id= Identifier | ^( '+' e1= exp e2= exp ) )
+            int alt5=3;
+            switch ( input.LA(1) ) {
+            case StringLiteral:
+                {
+                alt5=1;
+                }
+                break;
+            case Identifier:
+                {
+                alt5=2;
+                }
+                break;
+            case 21:
+                {
+                alt5=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 5, 0, input);
+
+                throw nvae;
+
+            }
+
+            switch (alt5) {
+                case 1 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:70:3: s= StringLiteral
+                    {
+                    s=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_exp252); 
+
+
+                                       value = (s!=null?s.getText():null);
+                                      
+
+                    }
+                    break;
+                case 2 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:74:5: id= Identifier
+                    {
+                    id=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_exp281); 
+
+
+                                       value = vars.get((id!=null?id.getText():null));
+                                       if (value == null) {
+                                       	throw new MetaFlowException("Variable " + (id!=null?id.getText():null) + " not assigned.");
+                                       }
+                                      
+
+                    }
+                    break;
+                case 3 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:82:3: ^( '+' e1= exp e2= exp )
+                    {
+                    match(input,21,FOLLOW_21_in_exp311); 
+
+                    match(input, Token.DOWN, null); 
+                    pushFollow(FOLLOW_exp_in_exp315);
+                    e1=exp();
+
+                    state._fsp--;
+
+
+                    pushFollow(FOLLOW_exp_in_exp319);
+                    e2=exp();
+
+                    state._fsp--;
+
+
+                    match(input, Token.UP, null); 
+
+
+
+                        value = e1 + e2;
+                       
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+
+        finally {
+        	// do for sure before leaving
+        }
+        return value;
+    }
+    // $ANTLR end "exp"
+
+
+
     // $ANTLR start "pipe"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:47:1: pipe : ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:89:1: pipe : ^(name= QualifiedName (carg= exp )? (a= arg )* ) ;
     public final void pipe() throws RecognitionException {
         CommonTree name=null;
-        CommonTree carg=null;
+        String carg =null;
+
         FlowBuilder.arg_return a =null;
 
 
@@ -222,25 +470,29 @@ public class FlowBuilder extends TreeParser {
         final Map<String, String> args = new HashMap<String, String>();
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:51:3: ( ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:52:3: ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:93:3: ( ^(name= QualifiedName (carg= exp )? (a= arg )* ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:94:3: ^(name= QualifiedName (carg= exp )? (a= arg )* )
             {
-            name=(CommonTree)match(input,QualifiedName,FOLLOW_QualifiedName_in_pipe199); 
+            name=(CommonTree)match(input,QualifiedName,FOLLOW_QualifiedName_in_pipe356); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:28: (carg= StringLiteral )?
-                int alt3=2;
-                int LA3_0 = input.LA(1);
+                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:95:28: (carg= exp )?
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA3_0==StringLiteral) ) {
-                    alt3=1;
+                if ( (LA6_0==Identifier||LA6_0==StringLiteral||LA6_0==21) ) {
+                    alt6=1;
                 }
-                switch (alt3) {
+                switch (alt6) {
                     case 1 :
-                        // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:28: carg= StringLiteral
+                        // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:95:28: carg= exp
                         {
-                        carg=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_pipe203); 
+                        pushFollow(FOLLOW_exp_in_pipe360);
+                        carg=exp();
+
+                        state._fsp--;
+
 
                         }
                         break;
@@ -248,22 +500,22 @@ public class FlowBuilder extends TreeParser {
                 }
 
 
-                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:54:5: (a= arg )*
-                loop4:
+                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:96:5: (a= arg )*
+                loop7:
                 do {
-                    int alt4=2;
-                    int LA4_0 = input.LA(1);
+                    int alt7=2;
+                    int LA7_0 = input.LA(1);
 
-                    if ( (LA4_0==ARG) ) {
-                        alt4=1;
+                    if ( (LA7_0==ARG) ) {
+                        alt7=1;
                     }
 
 
-                    switch (alt4) {
+                    switch (alt7) {
                 	case 1 :
-                	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:55:7: a= arg
+                	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:97:7: a= arg
                 	    {
-                	    pushFollow(FOLLOW_arg_in_pipe220);
+                	    pushFollow(FOLLOW_arg_in_pipe377);
                 	    a=arg();
 
                 	    state._fsp--;
@@ -277,7 +529,7 @@ public class FlowBuilder extends TreeParser {
                 	    break;
 
                 	default :
-                	    break loop4;
+                	    break loop7;
                     }
                 } while (true);
 
@@ -287,8 +539,8 @@ public class FlowBuilder extends TreeParser {
 
 
 
-                flow.addElement((name!=null?name.getText():null), args, (carg!=null?carg.getText():null));
-                 //System.out.println("created "+(name!=null?name.getText():null));
+                flow.addElement((name!=null?name.getText():null), args, carg);
+                //System.out.println("created "+(name!=null?name.getText():null));
                
 
             }
@@ -314,32 +566,37 @@ public class FlowBuilder extends TreeParser {
 
 
     // $ANTLR start "arg"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:68:1: arg returns [String key, String value] : ^( ARG k= Identifier v= StringLiteral ) ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:110:1: arg returns [String key, String value] : ^( ARG k= Identifier e= exp ) ;
     public final FlowBuilder.arg_return arg() throws RecognitionException {
         FlowBuilder.arg_return retval = new FlowBuilder.arg_return();
         retval.start = input.LT(1);
 
 
         CommonTree k=null;
-        CommonTree v=null;
+        String e =null;
+
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:69:3: ( ^( ARG k= Identifier v= StringLiteral ) )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:70:3: ^( ARG k= Identifier v= StringLiteral )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:111:3: ( ^( ARG k= Identifier e= exp ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:112:3: ^( ARG k= Identifier e= exp )
             {
-            match(input,ARG,FOLLOW_ARG_in_arg275); 
+            match(input,ARG,FOLLOW_ARG_in_arg432); 
 
             match(input, Token.DOWN, null); 
-            k=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_arg279); 
+            k=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_arg436); 
 
-            v=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_arg283); 
+            pushFollow(FOLLOW_exp_in_arg440);
+            e=exp();
+
+            state._fsp--;
+
 
             match(input, Token.UP, null); 
 
 
 
                 retval.key = (k!=null?k.getText():null);
-                retval.value = (v!=null?v.getText():null);
+                retval.value = e;
                
 
             }
@@ -362,15 +619,25 @@ public class FlowBuilder extends TreeParser {
 
  
 
-    public static final BitSet FOLLOW_flow_in_metaflow70 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StdIn_in_flow103 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_StringLiteral_in_flow126 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_pipe_in_flow166 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_QualifiedName_in_pipe199 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_StringLiteral_in_pipe203 = new BitSet(new long[]{0x0000000000000018L});
-    public static final BitSet FOLLOW_arg_in_pipe220 = new BitSet(new long[]{0x0000000000000018L});
-    public static final BitSet FOLLOW_ARG_in_arg275 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_arg279 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_StringLiteral_in_arg283 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_varDefs_in_metaflow70 = new BitSet(new long[]{0x0000000000218200L});
+    public static final BitSet FOLLOW_flow_in_metaflow72 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_varDef_in_varDefs105 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_DEF_in_varDef135 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_varDef139 = new BitSet(new long[]{0x0000000000210208L});
+    public static final BitSet FOLLOW_exp_in_varDef143 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_StdIn_in_flow174 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_exp_in_flow197 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_pipe_in_flow226 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_StringLiteral_in_exp252 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_exp281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_exp311 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_exp_in_exp315 = new BitSet(new long[]{0x0000000000210200L});
+    public static final BitSet FOLLOW_exp_in_exp319 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_QualifiedName_in_pipe356 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_exp_in_pipe360 = new BitSet(new long[]{0x0000000000000018L});
+    public static final BitSet FOLLOW_arg_in_pipe377 = new BitSet(new long[]{0x0000000000000018L});
+    public static final BitSet FOLLOW_ARG_in_arg432 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_arg436 = new BitSet(new long[]{0x0000000000210200L});
+    public static final BitSet FOLLOW_exp_in_arg440 = new BitSet(new long[]{0x0000000000000008L});
 
 }
