@@ -1,5 +1,8 @@
 package org.culturegraph.metaflow;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.Map;
 
 import org.culturegraph.metaflow.source.StdInOpener;
@@ -7,7 +10,6 @@ import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.framework.LifeCycle;
 import org.culturegraph.metastream.framework.ObjectReceiver;
 import org.culturegraph.metastream.framework.Sender;
-import org.culturegraph.util.CulturegraphUtilException;
 import org.culturegraph.util.ObjectFactory;
 import org.culturegraph.util.ResourceUtil;
 
@@ -18,24 +20,28 @@ import org.culturegraph.util.ResourceUtil;
 public class Flow {
 
 	private static final ObjectFactory<LifeCycle> PIPE_FACTORY = new ObjectFactory<LifeCycle>();
-	private static final String POPERTIES_LOCATION = "metaflow-pipe.properties";
-	private static final String USER_POPERTIES_LOCATION = "metaflow-pipe-user.properties";
+	private static final String PROPERTIES_LOCATION = "metaflow-pipe.properties";
+
 
 	static {
-		PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(POPERTIES_LOCATION), LifeCycle.class);
+		
 		try {
-			PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(USER_POPERTIES_LOCATION), LifeCycle.class);
-		} catch (CulturegraphUtilException e) {
-			// user properties are not mandatory, so just ignore
+			Enumeration<URL> enumeration = Thread.currentThread().getContextClassLoader().getResources(PROPERTIES_LOCATION);
+			while(enumeration.hasMoreElements()){
+				final URL url = enumeration.nextElement();
+				PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(url.getPath()), LifeCycle.class);
+			}
+
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	private LifeCycle element;
 	private ObjectReceiver<Object> start;
 
-	// public final void addElement(final String name) {
-	// addElement(name, new String[0]);
-	// }
 
 	public final void addElement(final String name, final Map<String, String> args) {
 		addElement(name, args, new Object[0]);
