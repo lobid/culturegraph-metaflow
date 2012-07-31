@@ -8,6 +8,7 @@ options {
 
 tokens {
   ARG;
+  DEF;
   QualifiedName;
   StartString;
 }
@@ -23,10 +24,17 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 metaflow
   :
-  f=flow 
-         {
-          System.out.println($f.tree.toStringTree());
-         }
+  varDef* f=flow
+  // {
+  //   System.out.println($f.tree.toStringTree());
+  // }
+  ;
+
+varDef
+  :
+  'def ' i=Identifier ('=' StringLiteral)?
+    ->
+      ^(DEF Identifier StringLiteral)
   ;
 
 flow
@@ -37,7 +45,6 @@ flow
   )
   ('|'! pipe)+ ';'!
   ;
-
 
 StdIn
   :
@@ -176,7 +183,6 @@ LINE_COMMENT
    )*
   '\r'? '\n' 
              {
-              System.out.println("comment found");
               $channel = HIDDEN;
              }
   ;

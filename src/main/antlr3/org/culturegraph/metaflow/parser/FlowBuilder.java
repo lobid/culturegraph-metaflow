@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 12:40:18
+// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 13:35:01
 
 package org.culturegraph.metaflow.parser;
 
@@ -84,7 +84,6 @@ public class FlowBuilder extends TreeParser {
 
 
                      flow = this.flow;
-                      System.out.println("found flow");
                      
 
             }
@@ -105,15 +104,15 @@ public class FlowBuilder extends TreeParser {
 
 
     // $ANTLR start "flow"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:31:1: flow : ( StdIn |sl= StringLiteral ) ( pipe )+ ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:30:1: flow : ( StdIn |sl= StringLiteral ) ( pipe )+ ;
     public final void flow() throws RecognitionException {
         CommonTree sl=null;
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:3: ( ( StdIn |sl= StringLiteral ) ( pipe )+ )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:33:3: ( StdIn |sl= StringLiteral ) ( pipe )+
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:31:3: ( ( StdIn |sl= StringLiteral ) ( pipe )+ )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:3: ( StdIn |sl= StringLiteral ) ( pipe )+
             {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:33:3: ( StdIn |sl= StringLiteral )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:32:3: ( StdIn |sl= StringLiteral )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -132,7 +131,7 @@ public class FlowBuilder extends TreeParser {
             }
             switch (alt1) {
                 case 1 :
-                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:34:5: StdIn
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:33:5: StdIn
                     {
                     match(input,StdIn,FOLLOW_StdIn_in_flow103); 
 
@@ -143,13 +142,12 @@ public class FlowBuilder extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:38:7: sl= StringLiteral
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:37:7: sl= StringLiteral
                     {
                     sl=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_flow126); 
 
 
                                             flow.setStringStart((sl!=null?sl.getText():null));
-                                            System.out.println("start with "+(sl!=null?sl.getText():null));
                                            
 
                     }
@@ -158,7 +156,7 @@ public class FlowBuilder extends TreeParser {
             }
 
 
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:44:3: ( pipe )+
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:42:3: ( pipe )+
             int cnt2=0;
             loop2:
             do {
@@ -172,7 +170,7 @@ public class FlowBuilder extends TreeParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:45:5: pipe
+            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:43:5: pipe
             	    {
             	    pushFollow(FOLLOW_pipe_in_flow166);
             	    pipe();
@@ -211,7 +209,7 @@ public class FlowBuilder extends TreeParser {
 
 
     // $ANTLR start "pipe"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:49:1: pipe : ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:47:1: pipe : ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) ;
     public final void pipe() throws RecognitionException {
         CommonTree name=null;
         CommonTree carg=null;
@@ -222,14 +220,14 @@ public class FlowBuilder extends TreeParser {
         final Map<String, String> args = new HashMap<String, String>();
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:3: ( ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:54:3: ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:51:3: ( ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:52:3: ^(name= QualifiedName (carg= StringLiteral )? (a= arg )* )
             {
             name=(CommonTree)match(input,QualifiedName,FOLLOW_QualifiedName_in_pipe199); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:55:28: (carg= StringLiteral )?
+                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:28: (carg= StringLiteral )?
                 int alt3=2;
                 int LA3_0 = input.LA(1);
 
@@ -238,7 +236,7 @@ public class FlowBuilder extends TreeParser {
                 }
                 switch (alt3) {
                     case 1 :
-                        // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:55:28: carg= StringLiteral
+                        // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:53:28: carg= StringLiteral
                         {
                         carg=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_pipe203); 
 
@@ -248,7 +246,7 @@ public class FlowBuilder extends TreeParser {
                 }
 
 
-                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:56:5: (a= arg )*
+                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:54:5: (a= arg )*
                 loop4:
                 do {
                     int alt4=2;
@@ -261,7 +259,7 @@ public class FlowBuilder extends TreeParser {
 
                     switch (alt4) {
                 	case 1 :
-                	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:57:7: a= arg
+                	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:55:7: a= arg
                 	    {
                 	    pushFollow(FOLLOW_arg_in_pipe220);
                 	    a=arg();
@@ -288,7 +286,7 @@ public class FlowBuilder extends TreeParser {
 
 
                 flow.addElement((name!=null?name.getText():null), args, (carg!=null?carg.getText():null));
-                 System.out.println("created "+(name!=null?name.getText():null));
+                 //System.out.println("created "+(name!=null?name.getText():null));
                
 
             }
@@ -314,7 +312,7 @@ public class FlowBuilder extends TreeParser {
 
 
     // $ANTLR start "arg"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:70:1: arg returns [String key, String value] : ^( ARG k= Identifier v= StringLiteral ) ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:68:1: arg returns [String key, String value] : ^( ARG k= Identifier v= StringLiteral ) ;
     public final FlowBuilder.arg_return arg() throws RecognitionException {
         FlowBuilder.arg_return retval = new FlowBuilder.arg_return();
         retval.start = input.LT(1);
@@ -324,8 +322,8 @@ public class FlowBuilder extends TreeParser {
         CommonTree v=null;
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:71:3: ( ^( ARG k= Identifier v= StringLiteral ) )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:72:3: ^( ARG k= Identifier v= StringLiteral )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:69:3: ( ^( ARG k= Identifier v= StringLiteral ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g:70:3: ^( ARG k= Identifier v= StringLiteral )
             {
             match(input,ARG,FOLLOW_ARG_in_arg275); 
 

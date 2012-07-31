@@ -86,4 +86,11 @@ public class Flow {
 		start.process(null);
 		start.closeStream();
 	}
+
+	public static void printHelp() {
+		HelpPrinter.print(PIPE_FACTORY);
+		
+	}
+	
+
 }

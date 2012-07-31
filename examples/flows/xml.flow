@@ -1,5 +1,5 @@
-1021191485|
-template(https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}) | 
-open(http)|
-read(marcxml)| 
-stream-to-xml(samples/Marc21-EDM.xml)
+"1021191485"|
+template("https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}") | 
+open("http")|
+read("marcxml")| 
+stream-to-xml("samples/Marc21-EDM.xml");

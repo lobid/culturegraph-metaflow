@@ -1,5 +1,0 @@
-examples/data/dewiki.xml | 
-open(file)|
-analyze-wp(examples/dewikipedia/analyzer.conf)|
-encode(pretty-print)|
-write(stdout)

@@ -24,7 +24,6 @@ metaflow returns [Flow flow]
   flow 
          {
          $flow = this.flow;
-          System.out.println("found flow");
          }
   ;
 
@@ -38,7 +37,6 @@ flow
     | sl=StringLiteral 
                        {
                         flow.setStringStart($sl.text);
-                        System.out.println("start with "+$sl.text);
                        }
   )
   (
@@ -63,7 +61,7 @@ final Map<String, String> args = new HashMap<String, String>();
   
    {
     flow.addElement($name.text, args, $carg.text);
-     System.out.println("created "+$name.text);
+     //System.out.println("created "+$name.text);
    }
   ;
 

@@ -1,4 +1,0 @@
-gnd_pers/scanner|
-from-hbase(borges)|
-encode(pretty-print)|
-write(stdout)
