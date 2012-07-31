@@ -7,6 +7,9 @@ import java.io.InputStream;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.culturegraph.metaflow.parser.FlowBuilder;
 import org.culturegraph.metaflow.parser.MetaflowLexer;
 import org.culturegraph.metaflow.parser.MetaflowParser;
 import org.culturegraph.util.ResourceUtil;
@@ -42,9 +45,15 @@ public final class Metaflow2 {
 		}
 
 		final MetaflowParser parser = new MetaflowParser(new CommonTokenStream(new MetaflowLexer(new ANTLRInputStream(flowDef))));
-		parser.flow();
+		final CommonTreeNodeStream treeNodes = new CommonTreeNodeStream(parser.metaflow().getTree());
 		
-		parser.getFlow().start();
+		
+		
+		final FlowBuilder flowBuilder = new FlowBuilder(treeNodes);
+		final Flow flow = flowBuilder.metaflow();
+		
+		flow.start();
+	
 	}
 
 }

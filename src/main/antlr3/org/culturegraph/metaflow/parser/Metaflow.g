@@ -1,128 +1,70 @@
 grammar Metaflow;
 
 options {
-  language = Java;
-  output   = AST;
+  language     = Java;
+  output       = AST;
+  ASTLabelType = CommonTree;
+}
+
+tokens {
+  ARG;
+  QualifiedName;
+  StartString;
 }
 
 @header {
 package org.culturegraph.metaflow.parser;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collections;
-import org.culturegraph.metaflow.Flow;
-import org.apache.commons.lang.StringEscapeUtils;
 }
 
 @lexer::header {
 package org.culturegraph.metaflow.parser;
-}
-
-@members {
-private Flow flow = new Flow();
-
-public Flow getFlow() {
-	return flow;
-}
-
-private static String toJavaString(String s) {
-	return StringEscapeUtils.unescapeJava(s.substring(1, s.length() - 1));
-}
+import org.apache.commons.lang.StringEscapeUtils;
 }
 
 metaflow
   :
-  flow+
+  f=flow 
+         {
+          System.out.println($f.tree.toStringTree());
+         }
   ;
 
 flow
   :
   (
-    stdIn
-    | inputString
+    StdIn
+    | StringLiteral
   )
-  ('|' pipe)+ ';'
+  ('|'! pipe)+ ';'!
   ;
 
-inputString
-  :
-  s=StringLiteral 
-                  {
-                   flow.setStringStart(toJavaString($s.text));
-                  }
-  ;
 
-stdIn
+StdIn
   :
-  '>' 
-      {
-       flow.setStdInStart();
-      }
-  ;
-
-flowElement
-  :
-  pipe
-  | pipeRef
-  ;
-
-pipeRef
-  :
-  '@' Identifier
+  '>'
   ;
 
 pipe
-@init {
-Map<String, String> args = Collections.emptyMap();
-String[] cArg = new String[0];
-}
   :
-  (qualifiedName) ('(' pipeArgs 
-                                {
-                                 if ($pipeArgs.cArg != null) {
-                                 	cArg = new String[] { $pipeArgs.cArg };
-                                 }
-                                 args = $pipeArgs.args;
-                                }
-    ')')? 
-          {
-           flow.addElement($qualifiedName.text, args, cArg);
-          }
+  qualifiedName ('(' pipeArgs ')')?
+    ->
+      ^(QualifiedName[$qualifiedName.text] pipeArgs*)
   ;
 
-pipeArgs returns [String cArg, Map<String, String> args]
-@init {
-$args = new HashMap<String, String>();
-}
+pipeArgs
   :
   (
-    s=StringLiteral 
-                    {
-                     $cArg = toJavaString($s.text);
-                    }
-    | a=namedArg 
-                 {
-                  $args.put($a.key, $a.value);
-                 }
+    StringLiteral
+    | namedArg
   )
-  (',' b=namedArg 
-                  {
-                   $args.put($b.key, $b.value);
-                  })*
+  (','! namedArg)*
   ;
 
-namedArg returns [String key, String value]
+namedArg
   :
-  argKey '=' s=StringLiteral 
-                             {
-                              $key = $argKey.text;
-                              $value = toJavaString($s.getText());
-                             }
-  ;
-
-argKey
-  :
-  Identifier
+  Identifier '=' StringLiteral
+    ->
+      ^(ARG Identifier StringLiteral)
   ;
 
 qualifiedName
@@ -139,41 +81,23 @@ Identifier
   )*
   ;
 
-fragment
-Letter
-  :
-  'a'..'z'
-  | 'A'..'Z'
-  | '-'
-  | '_'
-  ;
-
-fragment
-Digit
-  :
-  '0'..'9'
-  ;
-
 StringLiteral
   :
-  '"' EscapedString '"'
-  ;
-
-
-
-fragment
-EscapedString
-  :
+  '"'
   (
     EscapeSequence
     |
     ~(
       '\\'
       | '"'
-      | '\r'
-      | '\n'
      )
   )*
+  '"' 
+      {
+       // strip the quotes from the resulting token and unescape
+       setText(StringEscapeUtils.unescapeJava(getText().substring(1,
+       		getText().length() - 1)));
+      }
   ;
 
 fragment
@@ -189,30 +113,81 @@ EscapeSequence
     | '\"'
     | '\''
     | '\\'
-    | ('0'..'3') ('0'..'7') ('0'..'7')
-    | ('0'..'7') ('0'..'7')
-    | ('0'..'7')
+  )
+  | UnicodeEscape
+  | OctalEscape
+  ;
+
+fragment
+OctalEscape
+  :
+  '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+  | '\\' ('0'..'7') ('0'..'7')
+  | '\\' ('0'..'7')
+  ;
+
+fragment
+UnicodeEscape
+  :
+  '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+  ;
+
+fragment
+HexDigit
+  :
+  (
+    '0'..'9'
+    | 'a'..'f'
+    | 'A'..'F'
   )
   ;
 
-Whitespace
+fragment
+Letter
+  :
+  '\u0024'
+  | '\u0041'..'\u005a'
+  | '\u005f'
+  | '\u0061'..'\u007a'
+  | '\u00c0'..'\u00d6'
+  | '\u00d8'..'\u00f6'
+  | '\u00f8'..'\u00ff'
+  | '\u0100'..'\u1fff'
+  | '\u3040'..'\u318f'
+  | '\u3300'..'\u337f'
+  | '\u3400'..'\u3d2d'
+  | '\u4e00'..'\u9fff'
+  | '\uf900'..'\ufaff'
+  | '-'
+  ;
+
+fragment
+Digit
+  :
+  '0'..'9'
+  ;
+
+LINE_COMMENT
+  :
+  '//'
+  ~(
+    '\n'
+    | '\r'
+   )*
+  '\r'? '\n' 
+             {
+              System.out.println("comment found");
+              $channel = HIDDEN;
+             }
+  ;
+
+WS
   :
   (
     ' '
-    | '\t'
-    | '\f'
-  )+
-  
-   {
-    $channel = HIDDEN;
-   }
-  ;
-
-NewLine
-  :
-  (
-    '\r' '\n'
     | '\r'
+    | '\t'
+    | '\u000C'
     | '\n'
   )
   

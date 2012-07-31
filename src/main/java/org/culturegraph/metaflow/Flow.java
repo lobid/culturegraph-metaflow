@@ -2,7 +2,6 @@ package org.culturegraph.metaflow;
 
 import java.util.Map;
 
-
 import org.culturegraph.metaflow.source.StdInOpener;
 import org.culturegraph.metaflow.source.StringSender;
 import org.culturegraph.metastream.framework.LifeCycle;
@@ -23,19 +22,13 @@ public class Flow {
 	private static final String USER_POPERTIES_LOCATION = "metaflow-pipe-user.properties";
 
 	static {
-		PIPE_FACTORY.loadClassesFromMap(
-				ResourceUtil.loadProperties(POPERTIES_LOCATION),
-				LifeCycle.class);
+		PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(POPERTIES_LOCATION), LifeCycle.class);
 		try {
-			PIPE_FACTORY.loadClassesFromMap(
-					ResourceUtil.loadProperties(USER_POPERTIES_LOCATION),
-					LifeCycle.class);
+			PIPE_FACTORY.loadClassesFromMap(ResourceUtil.loadProperties(USER_POPERTIES_LOCATION), LifeCycle.class);
 		} catch (CulturegraphUtilException e) {
 			// user properties are not mandatory, so just ignore
 		}
 	}
-	
-	
 
 	private LifeCycle element;
 	private ObjectReceiver<Object> start;
@@ -44,16 +37,26 @@ public class Flow {
 	// addElement(name, new String[0]);
 	// }
 
-	public final void addElement(final String name,
-			final Map<String, String> args, final Object[] cArgs) {
-		
+	public final void addElement(final String name, final Map<String, String> args) {
+		addElement(name, args, new Object[0]);
+	}
+
+	public final void addElement(final String name, final Map<String, String> args, final String cArg) {
+		if (cArg == null) {
+			addElement(name, args);
+		} else {
+			addElement(name, args, new Object[] { cArg });
+		}
+	}
+
+	public final void addElement(final String name, final Map<String, String> args, final Object[] cArgs) {
+
 		final LifeCycle nextElement;
 		if (PIPE_FACTORY.containsKey(name)) {
 			nextElement = PIPE_FACTORY.newInstance(name, args, cArgs);
 
 		} else {
-			nextElement = ObjectFactory.newInstance(
-					ObjectFactory.loadClass(name, LifeCycle.class), cArgs);
+			nextElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), cArgs);
 			ObjectFactory.applySetters(nextElement, args);
 		}
 		addElement(nextElement);
@@ -74,8 +77,7 @@ public class Flow {
 			final Sender sender = (Sender) element;
 			sender.setReceiver(nextElement);
 		} else {
-			System.err.println(element.getClass().getCanonicalName()
-					+ "is not a sender");
+			System.err.println(element.getClass().getCanonicalName() + "is not a sender");
 		}
 		element = nextElement;
 	}
