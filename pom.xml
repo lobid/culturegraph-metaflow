@@ -61,6 +61,11 @@
 		<!-- <artifactId>antlr</artifactId> -->
 		<!-- <version>${antlr.version}</version> -->
 		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.culturegraph</groupId>
+			<artifactId>mongodb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 
