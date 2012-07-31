@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 13:35:01
+// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\FlowBuilder.g 2012-07-31 15:50:38
 
 package org.culturegraph.metaflow.parser;
 
@@ -17,31 +17,33 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class FlowBuilder extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "StartString", "StdIn", "StringLiteral", "UnicodeEscape", "WS", "'('", "')'", "','", "'.'", "';'", "'='", "'|'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "DEF", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "StartString", "StdIn", "StringLiteral", "UnicodeEscape", "WS", "'('", "')'", "','", "'.'", "';'", "'='", "'def '", "'|'"
     };
 
     public static final int EOF=-1;
-    public static final int T__18=18;
     public static final int T__19=19;
     public static final int T__20=20;
     public static final int T__21=21;
     public static final int T__22=22;
     public static final int T__23=23;
     public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__26=26;
     public static final int ARG=4;
-    public static final int Digit=5;
-    public static final int EscapeSequence=6;
-    public static final int HexDigit=7;
-    public static final int Identifier=8;
-    public static final int LINE_COMMENT=9;
-    public static final int Letter=10;
-    public static final int OctalEscape=11;
-    public static final int QualifiedName=12;
-    public static final int StartString=13;
-    public static final int StdIn=14;
-    public static final int StringLiteral=15;
-    public static final int UnicodeEscape=16;
-    public static final int WS=17;
+    public static final int DEF=5;
+    public static final int Digit=6;
+    public static final int EscapeSequence=7;
+    public static final int HexDigit=8;
+    public static final int Identifier=9;
+    public static final int LINE_COMMENT=10;
+    public static final int Letter=11;
+    public static final int OctalEscape=12;
+    public static final int QualifiedName=13;
+    public static final int StartString=14;
+    public static final int StdIn=15;
+    public static final int StringLiteral=16;
+    public static final int UnicodeEscape=17;
+    public static final int WS=18;
 
     // delegates
     public TreeParser[] getDelegates() {
@@ -147,7 +149,7 @@ public class FlowBuilder extends TreeParser {
                     sl=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_flow126); 
 
 
-                                            flow.setStringStart((sl!=null?sl.getText():null));
+                                           flow.setStringStart((sl!=null?sl.getText():null));
                                            
 
                     }
@@ -361,14 +363,14 @@ public class FlowBuilder extends TreeParser {
  
 
     public static final BitSet FOLLOW_flow_in_metaflow70 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StdIn_in_flow103 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_StringLiteral_in_flow126 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_pipe_in_flow166 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_StdIn_in_flow103 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_StringLiteral_in_flow126 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_pipe_in_flow166 = new BitSet(new long[]{0x0000000000002002L});
     public static final BitSet FOLLOW_QualifiedName_in_pipe199 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_StringLiteral_in_pipe203 = new BitSet(new long[]{0x0000000000000018L});
     public static final BitSet FOLLOW_arg_in_pipe220 = new BitSet(new long[]{0x0000000000000018L});
     public static final BitSet FOLLOW_ARG_in_arg275 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_arg279 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_Identifier_in_arg279 = new BitSet(new long[]{0x0000000000010000L});
     public static final BitSet FOLLOW_StringLiteral_in_arg283 = new BitSet(new long[]{0x0000000000000008L});
 
 }

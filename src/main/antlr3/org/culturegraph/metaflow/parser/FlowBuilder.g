@@ -36,7 +36,7 @@ flow
           }
     | sl=StringLiteral 
                        {
-                        flow.setStringStart($sl.text);
+                       flow.setStringStart($sl.text);
                        }
   )
   (
