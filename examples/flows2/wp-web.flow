@@ -1,6 +1,0 @@
-"Bertolt_Brecht"|
-template("http://de.wikipedia.org/wiki/Spezial:Exportieren/${obj}") | 
-open("http")|
-analyze-wp("examples/dewikipedia/analyzer.conf")|
-encode("pretty-print")|
-write("stdout");

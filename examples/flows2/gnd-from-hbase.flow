@@ -1,4 +1,0 @@
-"gnd_pers/row/100636438"|
-from-hbase("borges")|
-encode("pretty-print")|
-write("stdout");
