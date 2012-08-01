@@ -1,0 +1,13 @@
+//example with variables
+
+default idn = "1021191485";
+
+std = "std";
+out = "out";
+
+idn|
+template("https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}")| 
+open("http")|
+read("marcxml", format="marcxml")|
+encode("pretty-print")|
+write(std+out);

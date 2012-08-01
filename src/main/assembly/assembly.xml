@@ -19,6 +19,7 @@
 			<outputDirectory></outputDirectory>
 			<includes>
 				<include>*.bat</include>
+				<include>*.sh</include>
 			</includes>
 		</fileSet>
 		<!-- adds jar package to the root directory of zip package -->

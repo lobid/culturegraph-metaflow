@@ -8,7 +8,8 @@ options {
 
 tokens {
   ARG;
-  DEF;
+  ASSIGN;
+  DEFAULT;
   QualifiedName;
   StartString;
 }
@@ -24,17 +25,18 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 metaflow
   :
-  varDef* f=flow
-  // {
-  //   System.out.println($f.tree.toStringTree());
-  // }
+  varDef* flow
   ;
 
 varDef
   :
-  'def ' i=Identifier ('=' exp)? ';'
+  'default ' i=Identifier '=' exp ';'
     ->
-      ^(DEF Identifier exp?)
+      ^(DEFAULT Identifier exp)
+      |i=Identifier '=' exp ';'
+    ->
+      ^(ASSIGN Identifier exp)
+
   ;
 
 flow
@@ -60,10 +62,8 @@ pipe
 
 exp
   :
-  atom
-  | atom '+' atom
-    ->
-      ^('+' atom atom)
+  atom ('+'^ atom)*
+
   ;
 
 atom

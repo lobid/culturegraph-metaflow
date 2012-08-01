@@ -19,6 +19,10 @@ import org.culturegraph.metaflow.MetaFlowException;
 @members {
 Flow flow = new Flow();
 Map<String, String> vars = new HashMap<String, String>();
+
+public final void addVaribleAssignements(final Map<String, String> vars) {
+	this.vars.putAll(vars);
+}
 }
 
 metaflow returns [Flow flow]
@@ -39,12 +43,18 @@ varDefs
 
 varDef
   :
-  ^(DEF name=Identifier e=exp?)
+  ^(ASSIGN name=Identifier e=exp?)
   
    {
     vars.put($name.text, $e.value);
-    
-    //System.out.println("put " + $name.text + "=" + $value.text);
+   }
+  |
+  ^(DEFAULT name=Identifier e=exp?)
+  
+   {
+    if(!vars.containsKey($name.text)){
+        vars.put($name.text, $e.value);
+        }
    }
   ;
 
@@ -103,7 +113,6 @@ final Map<String, String> args = new HashMap<String, String>();
   
    {
     flow.addElement($name.text, args, $carg.value);
-    //System.out.println("created "+$name.text);
    }
   ;
 

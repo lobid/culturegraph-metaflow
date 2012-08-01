@@ -25,7 +25,7 @@ public final class HelpPrinter {
 	}
 	
 	public static void print(final ObjectFactory<?> factory) {
-		System.err.println("Usage:\tMetaflow \"PIPE_DESCRIPTION\"");
+		System.err.println("Usage:\tMetaflow \"PIPE_DESCRIPTION\" | -f FLOW_FILE");
 		System.err.println("\tPIPE_DESCRIPTION := [PIPE_ELEMENT] (| PIPE_ELEMENT)*\n");
 		System.err.println("Available pipe elements:\n");
 		
