@@ -1,4 +1,12 @@
 #!/bin/bash
 
 dir=`dirname $0`
-java -jar $dir/metaflow-0.0.2-SNAPSHOT.jar $*
+
+if uname | grep -iq cygwin; then
+    java -jar `cygpath -am $dir/metaflow-0.0.3-SNAPSHOT.jar` $*
+else
+    java -jar $dir/metaflow-0.0.3-SNAPSHOT.jar $*
+   
+fi
+
+

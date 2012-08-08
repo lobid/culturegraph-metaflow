@@ -27,10 +27,10 @@ public final void addVaribleAssignements(final Map<String, String> vars) {
 
 metaflow returns [Flow flow]
   :
-  varDefs flow 
-               {
-                $flow = this.flow;
-               }
+  varDefs mainflow 
+                   {
+                    $flow = this.flow;
+                   }
   ;
 
 varDefs
@@ -52,13 +52,13 @@ varDef
   ^(DEFAULT name=Identifier e=exp?)
   
    {
-    if(!vars.containsKey($name.text)){
-        vars.put($name.text, $e.value);
-        }
+    if (!vars.containsKey($name.text)) {
+    	vars.put($name.text, $e.value);
+    }
    }
   ;
 
-flow
+mainflow
   :
   (
     StdIn 
@@ -70,8 +70,38 @@ flow
              flow.setStringStart($e.value);
             }
   )
+  flow
+  ;
+
+tee
+  :
+  ^(
+    TEE 
+        {
+         flow.startTee();
+         //System.out.println("start tee");
+        }
+    (
+      ^(SUBFLOW flow)
+      
+       {
+        flow.endSubFlow();
+       // System.out.println("end subflow");
+       }
+    )+
+   )
+  
+   {
+    flow.endTee();
+    //System.out.println("end tee");
+   }
+  ;
+
+flow
+  :
   (
     pipe
+    | tee
   )+
   ;
 
@@ -112,7 +142,8 @@ final Map<String, String> args = new HashMap<String, String>();
    )
   
    {
-    flow.addElement($name.text, args, $carg.value);
+    flow.addElement(flow.createElement($name.text, args, $carg.value));
+    //System.out.println("adding " + $name.text);
    }
   ;
 

@@ -10,6 +10,8 @@ tokens {
   ARG;
   ASSIGN;
   DEFAULT;
+  TEE;
+  SUBFLOW;
   QualifiedName;
   StartString;
 }
@@ -25,7 +27,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 metaflow
   :
-  varDef* flow
+  varDef* mainflow
+  // {
+  //System.out.println($mainflow.tree.toStringTree());
+  // }
   ;
 
 varDef
@@ -33,19 +38,43 @@ varDef
   'default ' i=Identifier '=' exp ';'
     ->
       ^(DEFAULT Identifier exp)
-      |i=Identifier '=' exp ';'
+  | i=Identifier '=' exp ';'
     ->
       ^(ASSIGN Identifier exp)
-
   ;
 
-flow
+mainflow
   :
   (
     StdIn
     | exp
   )
-  ('|'! pipe)+ ';'!
+  '|'! flow ';'!
+  ;
+
+tee
+  :
+  ('{' flow '}')+
+    ->
+      ^(
+        TEE
+        ^(SUBFLOW flow)+
+       )
+  ;
+
+flow
+  :
+  (
+    pipe
+    | tee
+  )
+  (
+    '|'!
+    (
+      pipe
+      | tee
+    )
+  )*
   ;
 
 StdIn
@@ -63,7 +92,6 @@ pipe
 exp
   :
   atom ('+'^ atom)*
-
   ;
 
 atom

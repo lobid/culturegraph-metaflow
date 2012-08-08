@@ -1,0 +1,26 @@
+default page = "Bertolt_Brecht";
+
+page
+|template("http://de.wikipedia.org/wiki/Spezial:Exportieren/${obj}")
+|open("http")
+|analyze-wp("examples/dewikipedia/analyzer.conf")
+|stream-tee
+|
+{
+	encode("pretty-print")
+	|write("stdout")
+}
+{
+	encode("cge")
+	|write("stdout")
+}
+;
+
+
+
+
+
+
+
+
+	

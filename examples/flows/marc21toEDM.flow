@@ -1,0 +1,9 @@
+
+default idn = "1021191485";
+
+idn|
+template("https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}")| 
+open("http")|
+read("marcxml")|
+stream-to-xml("examples/morph/Marc21-EDM.xml", recordtag="rdf:RDF")|
+write("file://test.xml");
