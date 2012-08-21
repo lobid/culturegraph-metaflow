@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	version="1">
+	<meta>
+
+	</meta>
+
+	<rules>
+		<data source="_id">
+			<constant value="011817780" />
+			<lookup in="wikip" />
+		</data>
+
+		<data source="_id">
+
+			<lookup in="dnb" />
+		</data>
+	</rules>
+
+	<maps>
+		<sqlmap name="wikip" login="normdatuser" password="normdatpass"
+			host="zone-db.dnb.de" query="SELECT wpphrase FROM normdatT.wpPerson where gndid= ?"
+			database="normdatT" />
+
+		<restmap url="http://www.dnb.de" name="dnb" />
+	</maps>
+</metamorph>	

@@ -1,0 +1,6 @@
+"examples/data/10.marc21"|
+open("file")|
+read("marc21")|
+morph("examples/morph/morphWithSqlMap.xml")|
+encode("pretty-print")|
+write("stdout");

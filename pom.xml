@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.culturegraph</groupId>
 	<artifactId>metaflow</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,11 @@
 		</dependency>
 		<!-- Logging -->
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
 
 
 		<dependency>
@@ -107,44 +112,44 @@
 			</plugin>
 
 
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.eclipse.m2e</groupId> -->
-<!-- 				<artifactId>lifecycle-mapping</artifactId> -->
-<!-- 				<version>1.0.0</version> -->
-<!-- 				<configuration> -->
-<!-- 					<lifecycleMappingMetadata> -->
-<!-- 						<pluginExecutions> -->
-<!-- 							<pluginExecution> -->
-<!-- 								<pluginExecutionFilter> -->
-<!-- 									<groupId>org.antlr</groupId> -->
-<!-- 									<artifactId>antlr3-maven-plugin</artifactId> -->
-<!-- 									<version>${antlr.version}</version> -->
-<!-- 									<goals> -->
-<!-- 										<goal>antlr</goal> -->
-<!-- 									</goals> -->
-<!-- 								</pluginExecutionFilter> -->
-<!-- 								<action> -->
-<!-- 									<execute /> -->
-<!-- 								</action> -->
-<!-- 							</pluginExecution> -->
-<!-- 						</pluginExecutions> -->
-<!-- 					</lifecycleMappingMetadata> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.eclipse.m2e</groupId> -->
+			<!-- <artifactId>lifecycle-mapping</artifactId> -->
+			<!-- <version>1.0.0</version> -->
+			<!-- <configuration> -->
+			<!-- <lifecycleMappingMetadata> -->
+			<!-- <pluginExecutions> -->
+			<!-- <pluginExecution> -->
+			<!-- <pluginExecutionFilter> -->
+			<!-- <groupId>org.antlr</groupId> -->
+			<!-- <artifactId>antlr3-maven-plugin</artifactId> -->
+			<!-- <version>${antlr.version}</version> -->
+			<!-- <goals> -->
+			<!-- <goal>antlr</goal> -->
+			<!-- </goals> -->
+			<!-- </pluginExecutionFilter> -->
+			<!-- <action> -->
+			<!-- <execute /> -->
+			<!-- </action> -->
+			<!-- </pluginExecution> -->
+			<!-- </pluginExecutions> -->
+			<!-- </lifecycleMappingMetadata> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 
 
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.antlr</groupId> -->
-<!-- 				<artifactId>antlr3-maven-plugin</artifactId> -->
-<!-- 				<version>${antlr.version}</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<goals> -->
-<!-- 							<goal>antlr</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.antlr</groupId> -->
+			<!-- <artifactId>antlr3-maven-plugin</artifactId> -->
+			<!-- <version>${antlr.version}</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>antlr</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 
 
 			<plugin>
@@ -155,7 +160,7 @@
 					<source>${targetJdk}</source>
 					<target>${targetJdk}</target>
 					<showWarnings>true</showWarnings>
-					
+
 				</configuration>
 			</plugin>
 
