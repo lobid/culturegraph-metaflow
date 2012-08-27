@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cgxml version="1.0" xmlns="http://www.culturegraph.org/cgxml">
+	<records>
+		<record id="1">
+			<literal name="bibo:isbn13" value="1" />
+		</record>
+		<record id="2">
+			<literal name="bibo:isbn13" value="1" />
+		</record>
+		
+		<record id="3">
+			<literal name="bibo:isbn13" value="2" />
+		</record>
+		<record id="4">
+			<literal name="bibo:isbn13" value="2" />
+			<literal name="bibo:isbn13" value="3" />
+		</record>
+		<record id="5">
+			<literal name="bibo:isbn13" value="3" />
+			<literal name="bibo:isbn13" value="4" />
+			<literal name="bibo:isbn13" value="5" />
+		</record>
+		<record id="6">
+			<literal name="bibo:isbn13" value="4" />
+		</record>
+		<record id="7">
+			<literal name="bibo:isbn13" value="X" />
+		</record>
+	</records>
+</cgxml>

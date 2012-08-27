@@ -11,10 +11,9 @@
 			<lookup in="wikip" />
 		</data>
 
-		<data source="_id">
-
-			<lookup in="dnb" />
-		</data>
+<!-- 		<data source="_id"> -->
+<!-- 			<lookup in="dnb" /> -->
+<!-- 		</data> -->
 	</rules>
 
 	<maps>
@@ -22,6 +21,6 @@
 			host="zone-db.dnb.de" query="SELECT wpphrase FROM normdatT.wpPerson where gndid= ?"
 			database="normdatT" />
 
-		<restmap url="http://www.dnb.de" name="dnb" />
+<!-- 		<restmap url="http://www.dnb.de" name="dnb" /> -->
 	</maps>
 </metamorph>	
