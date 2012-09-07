@@ -17,9 +17,9 @@
 	</rules>
 
 	<maps>
-		<sqlmap name="wikip" login="normdatuser" password="normdatpass"
-			host="zone-db.dnb.de" query="SELECT wpphrase FROM normdatT.wpPerson where gndid= ?"
-			database="normdatT" />
+		<sqlmap name="wikip" login="user" password="pass"
+			host="localhost" query="SELECT wpphrase FROM wpPerson where gndid= ?"
+			database="normdat" />
 
 <!-- 		<restmap url="http://www.dnb.de" name="dnb" /> -->
 	</maps>
