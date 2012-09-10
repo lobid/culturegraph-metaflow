@@ -42,8 +42,7 @@ public final class Flow {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new MetaFlowException("unable to load properties.", e);
 		}
 	}
 
