@@ -3,4 +3,6 @@ default host = "localhost";
 default encoding = "literals";
 default out = "stdout";
 
+morphDef = "examples/morph/" + morphDef;
+
 table + "/scanner" | from-hbase(host) | morph(morphDef) | encode(encoding) | write(out);
