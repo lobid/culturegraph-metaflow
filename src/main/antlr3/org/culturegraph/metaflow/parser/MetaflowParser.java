@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g 2012-08-24 13:15:14
+// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g 2012-09-10 13:20:14
 
 package org.culturegraph.metaflow.parser;
 
@@ -14,11 +14,10 @@ import org.antlr.runtime.tree.*;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class MetaflowParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "ASSIGN", "DEFAULT", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "SUBFLOW", "StartString", "StdIn", "StringLiteral", "TEE", "UnicodeEscape", "WS", "'('", "')'", "'+'", "','", "'.'", "';'", "'='", "'default '", "'{'", "'|'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ARG", "ASSIGN", "DEFAULT", "Digit", "EscapeSequence", "HexDigit", "Identifier", "LINE_COMMENT", "Letter", "OctalEscape", "QualifiedName", "SUBFLOW", "StartString", "StdIn", "StringLiteral", "TEE", "UnicodeEscape", "VarRef", "WS", "'('", "')'", "'+'", "','", "'.'", "';'", "'='", "'default '", "'{'", "'|'", "'}'"
     };
 
     public static final int EOF=-1;
-    public static final int T__22=22;
     public static final int T__23=23;
     public static final int T__24=24;
     public static final int T__25=25;
@@ -29,6 +28,7 @@ public class MetaflowParser extends Parser {
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
+    public static final int T__33=33;
     public static final int ARG=4;
     public static final int ASSIGN=5;
     public static final int DEFAULT=6;
@@ -46,7 +46,8 @@ public class MetaflowParser extends Parser {
     public static final int StringLiteral=18;
     public static final int TEE=19;
     public static final int UnicodeEscape=20;
-    public static final int WS=21;
+    public static final int VarRef=21;
+    public static final int WS=22;
 
     // delegates
     public Parser[] getDelegates() {
@@ -112,13 +113,13 @@ public TreeAdaptor getTreeAdaptor() {
                 if ( (LA1_0==Identifier) ) {
                     int LA1_2 = input.LA(2);
 
-                    if ( (LA1_2==28) ) {
+                    if ( (LA1_2==29) ) {
                         alt1=1;
                     }
 
 
                 }
-                else if ( (LA1_0==29) ) {
+                else if ( (LA1_0==30) ) {
                     alt1=1;
                 }
 
@@ -206,8 +207,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal6_tree=null;
         CommonTree char_literal7_tree=null;
         CommonTree char_literal9_tree=null;
+        RewriteRuleTokenStream stream_30=new RewriteRuleTokenStream(adaptor,"token 30");
         RewriteRuleTokenStream stream_Identifier=new RewriteRuleTokenStream(adaptor,"token Identifier");
-        RewriteRuleTokenStream stream_27=new RewriteRuleTokenStream(adaptor,"token 27");
         RewriteRuleTokenStream stream_28=new RewriteRuleTokenStream(adaptor,"token 28");
         RewriteRuleTokenStream stream_29=new RewriteRuleTokenStream(adaptor,"token 29");
         RewriteRuleSubtreeStream stream_exp=new RewriteRuleSubtreeStream(adaptor,"rule exp");
@@ -216,7 +217,7 @@ public TreeAdaptor getTreeAdaptor() {
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( (LA2_0==29) ) {
+            if ( (LA2_0==30) ) {
                 alt2=1;
             }
             else if ( (LA2_0==Identifier) ) {
@@ -233,16 +234,16 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:38:3: 'default ' i= Identifier '=' exp ';'
                     {
-                    string_literal3=(Token)match(input,29,FOLLOW_29_in_varDef138);  
-                    stream_29.add(string_literal3);
+                    string_literal3=(Token)match(input,30,FOLLOW_30_in_varDef138);  
+                    stream_30.add(string_literal3);
 
 
                     i=(Token)match(input,Identifier,FOLLOW_Identifier_in_varDef142);  
                     stream_Identifier.add(i);
 
 
-                    char_literal4=(Token)match(input,28,FOLLOW_28_in_varDef144);  
-                    stream_28.add(char_literal4);
+                    char_literal4=(Token)match(input,29,FOLLOW_29_in_varDef144);  
+                    stream_29.add(char_literal4);
 
 
                     pushFollow(FOLLOW_exp_in_varDef146);
@@ -252,12 +253,12 @@ public TreeAdaptor getTreeAdaptor() {
 
                     stream_exp.add(exp5.getTree());
 
-                    char_literal6=(Token)match(input,27,FOLLOW_27_in_varDef148);  
-                    stream_27.add(char_literal6);
+                    char_literal6=(Token)match(input,28,FOLLOW_28_in_varDef148);  
+                    stream_28.add(char_literal6);
 
 
                     // AST REWRITE
-                    // elements: exp, Identifier
+                    // elements: Identifier, exp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -299,8 +300,8 @@ public TreeAdaptor getTreeAdaptor() {
                     stream_Identifier.add(i);
 
 
-                    char_literal7=(Token)match(input,28,FOLLOW_28_in_varDef178);  
-                    stream_28.add(char_literal7);
+                    char_literal7=(Token)match(input,29,FOLLOW_29_in_varDef178);  
+                    stream_29.add(char_literal7);
 
 
                     pushFollow(FOLLOW_exp_in_varDef180);
@@ -310,12 +311,12 @@ public TreeAdaptor getTreeAdaptor() {
 
                     stream_exp.add(exp8.getTree());
 
-                    char_literal9=(Token)match(input,27,FOLLOW_27_in_varDef182);  
-                    stream_27.add(char_literal9);
+                    char_literal9=(Token)match(input,28,FOLLOW_28_in_varDef182);  
+                    stream_28.add(char_literal9);
 
 
                     // AST REWRITE
-                    // elements: exp, Identifier
+                    // elements: Identifier, exp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -454,7 +455,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal12=(Token)match(input,31,FOLLOW_31_in_mainflow239); 
+            char_literal12=(Token)match(input,32,FOLLOW_32_in_mainflow239); 
 
             pushFollow(FOLLOW_flow_in_mainflow242);
             flow13=flow();
@@ -463,7 +464,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             adaptor.addChild(root_0, flow13.getTree());
 
-            char_literal14=(Token)match(input,27,FOLLOW_27_in_mainflow244); 
+            char_literal14=(Token)match(input,28,FOLLOW_28_in_mainflow244); 
 
             }
 
@@ -511,8 +512,8 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree char_literal15_tree=null;
         CommonTree char_literal17_tree=null;
-        RewriteRuleTokenStream stream_30=new RewriteRuleTokenStream(adaptor,"token 30");
-        RewriteRuleTokenStream stream_32=new RewriteRuleTokenStream(adaptor,"token 32");
+        RewriteRuleTokenStream stream_31=new RewriteRuleTokenStream(adaptor,"token 31");
+        RewriteRuleTokenStream stream_33=new RewriteRuleTokenStream(adaptor,"token 33");
         RewriteRuleSubtreeStream stream_flow=new RewriteRuleSubtreeStream(adaptor,"rule flow");
         try {
             // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:56:3: ( ( '{' flow '}' )+ -> ^( TEE ( ^( SUBFLOW flow ) )+ ) )
@@ -525,7 +526,7 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( (LA4_0==30) ) {
+                if ( (LA4_0==31) ) {
                     alt4=1;
                 }
 
@@ -534,8 +535,8 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:57:4: '{' flow '}'
             	    {
-            	    char_literal15=(Token)match(input,30,FOLLOW_30_in_tee261);  
-            	    stream_30.add(char_literal15);
+            	    char_literal15=(Token)match(input,31,FOLLOW_31_in_tee261);  
+            	    stream_31.add(char_literal15);
 
 
             	    pushFollow(FOLLOW_flow_in_tee263);
@@ -545,8 +546,8 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    stream_flow.add(flow16.getTree());
 
-            	    char_literal17=(Token)match(input,32,FOLLOW_32_in_tee265);  
-            	    stream_32.add(char_literal17);
+            	    char_literal17=(Token)match(input,33,FOLLOW_33_in_tee265);  
+            	    stream_33.add(char_literal17);
 
 
             	    }
@@ -674,7 +675,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( (LA5_0==Identifier) ) {
                 alt5=1;
             }
-            else if ( (LA5_0==30) ) {
+            else if ( (LA5_0==31) ) {
                 alt5=2;
             }
             else {
@@ -719,7 +720,7 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt7=2;
                 int LA7_0 = input.LA(1);
 
-                if ( (LA7_0==31) ) {
+                if ( (LA7_0==32) ) {
                     alt7=1;
                 }
 
@@ -728,7 +729,7 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:72:5: '|' ! ( pipe | tee )
             	    {
-            	    char_literal20=(Token)match(input,31,FOLLOW_31_in_flow358); 
+            	    char_literal20=(Token)match(input,32,FOLLOW_32_in_flow358); 
 
             	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:73:5: ( pipe | tee )
             	    int alt6=2;
@@ -737,7 +738,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    if ( (LA6_0==Identifier) ) {
             	        alt6=1;
             	    }
-            	    else if ( (LA6_0==30) ) {
+            	    else if ( (LA6_0==31) ) {
             	        alt6=2;
             	    }
             	    else {
@@ -833,8 +834,8 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree char_literal24_tree=null;
         CommonTree char_literal26_tree=null;
-        RewriteRuleTokenStream stream_22=new RewriteRuleTokenStream(adaptor,"token 22");
         RewriteRuleTokenStream stream_23=new RewriteRuleTokenStream(adaptor,"token 23");
+        RewriteRuleTokenStream stream_24=new RewriteRuleTokenStream(adaptor,"token 24");
         RewriteRuleSubtreeStream stream_qualifiedName=new RewriteRuleSubtreeStream(adaptor,"rule qualifiedName");
         RewriteRuleSubtreeStream stream_pipeArgs=new RewriteRuleSubtreeStream(adaptor,"rule pipeArgs");
         try {
@@ -852,15 +853,15 @@ public TreeAdaptor getTreeAdaptor() {
             int alt8=2;
             int LA8_0 = input.LA(1);
 
-            if ( (LA8_0==22) ) {
+            if ( (LA8_0==23) ) {
                 alt8=1;
             }
             switch (alt8) {
                 case 1 :
                     // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:87:18: '(' pipeArgs ')'
                     {
-                    char_literal24=(Token)match(input,22,FOLLOW_22_in_pipe427);  
-                    stream_22.add(char_literal24);
+                    char_literal24=(Token)match(input,23,FOLLOW_23_in_pipe427);  
+                    stream_23.add(char_literal24);
 
 
                     pushFollow(FOLLOW_pipeArgs_in_pipe429);
@@ -870,8 +871,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                     stream_pipeArgs.add(pipeArgs25.getTree());
 
-                    char_literal26=(Token)match(input,23,FOLLOW_23_in_pipe431);  
-                    stream_23.add(char_literal26);
+                    char_literal26=(Token)match(input,24,FOLLOW_24_in_pipe431);  
+                    stream_24.add(char_literal26);
 
 
                     }
@@ -982,7 +983,7 @@ public TreeAdaptor getTreeAdaptor() {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==24) ) {
+                if ( (LA9_0==25) ) {
                     alt9=1;
                 }
 
@@ -991,7 +992,7 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:94:9: '+' ^ atom
             	    {
-            	    char_literal28=(Token)match(input,24,FOLLOW_24_in_exp471); 
+            	    char_literal28=(Token)match(input,25,FOLLOW_25_in_exp471); 
             	    char_literal28_tree = 
             	    (CommonTree)adaptor.create(char_literal28)
             	    ;
@@ -1110,7 +1111,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "pipeArgs"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:103:1: pipeArgs : ( exp | namedArg ) ( ',' ! namedArg )* ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:103:1: pipeArgs : ( exp | exp ',' ! VarRef | VarRef | namedArg ) ( ',' ! namedArg )* ;
     public final MetaflowParser.pipeArgs_return pipeArgs() throws RecognitionException {
         MetaflowParser.pipeArgs_return retval = new MetaflowParser.pipeArgs_return();
         retval.start = input.LT(1);
@@ -1119,53 +1120,33 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree root_0 = null;
 
         Token char_literal33=null;
+        Token VarRef34=null;
+        Token VarRef35=null;
+        Token char_literal37=null;
         MetaflowParser.exp_return exp31 =null;
 
-        MetaflowParser.namedArg_return namedArg32 =null;
+        MetaflowParser.exp_return exp32 =null;
 
-        MetaflowParser.namedArg_return namedArg34 =null;
+        MetaflowParser.namedArg_return namedArg36 =null;
+
+        MetaflowParser.namedArg_return namedArg38 =null;
 
 
         CommonTree char_literal33_tree=null;
+        CommonTree VarRef34_tree=null;
+        CommonTree VarRef35_tree=null;
+        CommonTree char_literal37_tree=null;
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:104:3: ( ( exp | namedArg ) ( ',' ! namedArg )* )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:105:3: ( exp | namedArg ) ( ',' ! namedArg )*
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:104:3: ( ( exp | exp ',' ! VarRef | VarRef | namedArg ) ( ',' ! namedArg )* )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:105:3: ( exp | exp ',' ! VarRef | VarRef | namedArg ) ( ',' ! namedArg )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:105:3: ( exp | namedArg )
-            int alt10=2;
-            int LA10_0 = input.LA(1);
-
-            if ( (LA10_0==Identifier) ) {
-                int LA10_1 = input.LA(2);
-
-                if ( (LA10_1==28) ) {
-                    alt10=2;
-                }
-                else if ( ((LA10_1 >= 23 && LA10_1 <= 25)) ) {
-                    alt10=1;
-                }
-                else {
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 10, 1, input);
-
-                    throw nvae;
-
-                }
-            }
-            else if ( (LA10_0==StringLiteral) ) {
-                alt10=1;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 10, 0, input);
-
-                throw nvae;
-
-            }
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:105:3: ( exp | exp ',' ! VarRef | VarRef | namedArg )
+            int alt10=4;
+            alt10 = dfa10.predict(input);
             switch (alt10) {
                 case 1 :
                     // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:106:5: exp
@@ -1180,14 +1161,47 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:107:7: namedArg
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:107:7: exp ',' ! VarRef
                     {
-                    pushFollow(FOLLOW_namedArg_in_pipeArgs526);
-                    namedArg32=namedArg();
+                    pushFollow(FOLLOW_exp_in_pipeArgs526);
+                    exp32=exp();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, namedArg32.getTree());
+                    adaptor.addChild(root_0, exp32.getTree());
+
+                    char_literal33=(Token)match(input,26,FOLLOW_26_in_pipeArgs528); 
+
+                    VarRef34=(Token)match(input,VarRef,FOLLOW_VarRef_in_pipeArgs531); 
+                    VarRef34_tree = 
+                    (CommonTree)adaptor.create(VarRef34)
+                    ;
+                    adaptor.addChild(root_0, VarRef34_tree);
+
+
+                    }
+                    break;
+                case 3 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:108:7: VarRef
+                    {
+                    VarRef35=(Token)match(input,VarRef,FOLLOW_VarRef_in_pipeArgs539); 
+                    VarRef35_tree = 
+                    (CommonTree)adaptor.create(VarRef35)
+                    ;
+                    adaptor.addChild(root_0, VarRef35_tree);
+
+
+                    }
+                    break;
+                case 4 :
+                    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:109:7: namedArg
+                    {
+                    pushFollow(FOLLOW_namedArg_in_pipeArgs547);
+                    namedArg36=namedArg();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, namedArg36.getTree());
 
                     }
                     break;
@@ -1195,29 +1209,29 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:109:3: ( ',' ! namedArg )*
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:111:3: ( ',' ! namedArg )*
             loop11:
             do {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==25) ) {
+                if ( (LA11_0==26) ) {
                     alt11=1;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:109:4: ',' ! namedArg
+            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:111:4: ',' ! namedArg
             	    {
-            	    char_literal33=(Token)match(input,25,FOLLOW_25_in_pipeArgs535); 
+            	    char_literal37=(Token)match(input,26,FOLLOW_26_in_pipeArgs556); 
 
-            	    pushFollow(FOLLOW_namedArg_in_pipeArgs538);
-            	    namedArg34=namedArg();
+            	    pushFollow(FOLLOW_namedArg_in_pipeArgs559);
+            	    namedArg38=namedArg();
 
             	    state._fsp--;
 
-            	    adaptor.addChild(root_0, namedArg34.getTree());
+            	    adaptor.addChild(root_0, namedArg38.getTree());
 
             	    }
             	    break;
@@ -1259,7 +1273,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "namedArg"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:112:1: namedArg : Identifier '=' exp -> ^( ARG Identifier exp ) ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:114:1: namedArg : Identifier '=' exp -> ^( ARG Identifier exp ) ;
     public final MetaflowParser.namedArg_return namedArg() throws RecognitionException {
         MetaflowParser.namedArg_return retval = new MetaflowParser.namedArg_return();
         retval.start = input.LT(1);
@@ -1267,37 +1281,37 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token Identifier35=null;
-        Token char_literal36=null;
-        MetaflowParser.exp_return exp37 =null;
+        Token Identifier39=null;
+        Token char_literal40=null;
+        MetaflowParser.exp_return exp41 =null;
 
 
-        CommonTree Identifier35_tree=null;
-        CommonTree char_literal36_tree=null;
+        CommonTree Identifier39_tree=null;
+        CommonTree char_literal40_tree=null;
         RewriteRuleTokenStream stream_Identifier=new RewriteRuleTokenStream(adaptor,"token Identifier");
-        RewriteRuleTokenStream stream_28=new RewriteRuleTokenStream(adaptor,"token 28");
+        RewriteRuleTokenStream stream_29=new RewriteRuleTokenStream(adaptor,"token 29");
         RewriteRuleSubtreeStream stream_exp=new RewriteRuleSubtreeStream(adaptor,"rule exp");
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:113:3: ( Identifier '=' exp -> ^( ARG Identifier exp ) )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:114:3: Identifier '=' exp
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:115:3: ( Identifier '=' exp -> ^( ARG Identifier exp ) )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:116:3: Identifier '=' exp
             {
-            Identifier35=(Token)match(input,Identifier,FOLLOW_Identifier_in_namedArg555);  
-            stream_Identifier.add(Identifier35);
+            Identifier39=(Token)match(input,Identifier,FOLLOW_Identifier_in_namedArg576);  
+            stream_Identifier.add(Identifier39);
 
 
-            char_literal36=(Token)match(input,28,FOLLOW_28_in_namedArg557);  
-            stream_28.add(char_literal36);
+            char_literal40=(Token)match(input,29,FOLLOW_29_in_namedArg578);  
+            stream_29.add(char_literal40);
 
 
-            pushFollow(FOLLOW_exp_in_namedArg559);
-            exp37=exp();
+            pushFollow(FOLLOW_exp_in_namedArg580);
+            exp41=exp();
 
             state._fsp--;
 
-            stream_exp.add(exp37.getTree());
+            stream_exp.add(exp41.getTree());
 
             // AST REWRITE
-            // elements: exp, Identifier
+            // elements: Identifier, exp
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1307,9 +1321,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (CommonTree)adaptor.nil();
-            // 115:5: -> ^( ARG Identifier exp )
+            // 117:5: -> ^( ARG Identifier exp )
             {
-                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:116:7: ^( ARG Identifier exp )
+                // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:118:7: ^( ARG Identifier exp )
                 {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(
@@ -1361,7 +1375,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "qualifiedName"
-    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:119:1: qualifiedName : Identifier ( '.' Identifier )* ;
+    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:121:1: qualifiedName : Identifier ( '.' Identifier )* ;
     public final MetaflowParser.qualifiedName_return qualifiedName() throws RecognitionException {
         MetaflowParser.qualifiedName_return retval = new MetaflowParser.qualifiedName_return();
         retval.start = input.LT(1);
@@ -1369,55 +1383,55 @@ public TreeAdaptor getTreeAdaptor() {
 
         CommonTree root_0 = null;
 
-        Token Identifier38=null;
-        Token char_literal39=null;
-        Token Identifier40=null;
+        Token Identifier42=null;
+        Token char_literal43=null;
+        Token Identifier44=null;
 
-        CommonTree Identifier38_tree=null;
-        CommonTree char_literal39_tree=null;
-        CommonTree Identifier40_tree=null;
+        CommonTree Identifier42_tree=null;
+        CommonTree char_literal43_tree=null;
+        CommonTree Identifier44_tree=null;
 
         try {
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:120:3: ( Identifier ( '.' Identifier )* )
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:121:3: Identifier ( '.' Identifier )*
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:122:3: ( Identifier ( '.' Identifier )* )
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:123:3: Identifier ( '.' Identifier )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            Identifier38=(Token)match(input,Identifier,FOLLOW_Identifier_in_qualifiedName594); 
-            Identifier38_tree = 
-            (CommonTree)adaptor.create(Identifier38)
+            Identifier42=(Token)match(input,Identifier,FOLLOW_Identifier_in_qualifiedName615); 
+            Identifier42_tree = 
+            (CommonTree)adaptor.create(Identifier42)
             ;
-            adaptor.addChild(root_0, Identifier38_tree);
+            adaptor.addChild(root_0, Identifier42_tree);
 
 
-            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:121:14: ( '.' Identifier )*
+            // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:123:14: ( '.' Identifier )*
             loop12:
             do {
                 int alt12=2;
                 int LA12_0 = input.LA(1);
 
-                if ( (LA12_0==26) ) {
+                if ( (LA12_0==27) ) {
                     alt12=1;
                 }
 
 
                 switch (alt12) {
             	case 1 :
-            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:121:15: '.' Identifier
+            	    // D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g:123:15: '.' Identifier
             	    {
-            	    char_literal39=(Token)match(input,26,FOLLOW_26_in_qualifiedName597); 
-            	    char_literal39_tree = 
-            	    (CommonTree)adaptor.create(char_literal39)
+            	    char_literal43=(Token)match(input,27,FOLLOW_27_in_qualifiedName618); 
+            	    char_literal43_tree = 
+            	    (CommonTree)adaptor.create(char_literal43)
             	    ;
-            	    adaptor.addChild(root_0, char_literal39_tree);
+            	    adaptor.addChild(root_0, char_literal43_tree);
 
 
-            	    Identifier40=(Token)match(input,Identifier,FOLLOW_Identifier_in_qualifiedName599); 
-            	    Identifier40_tree = 
-            	    (CommonTree)adaptor.create(Identifier40)
+            	    Identifier44=(Token)match(input,Identifier,FOLLOW_Identifier_in_qualifiedName620); 
+            	    Identifier44_tree = 
+            	    (CommonTree)adaptor.create(Identifier44)
             	    ;
-            	    adaptor.addChild(root_0, Identifier40_tree);
+            	    adaptor.addChild(root_0, Identifier44_tree);
 
 
             	    }
@@ -1455,48 +1469,111 @@ public TreeAdaptor getTreeAdaptor() {
     // Delegated rules
 
 
+    protected DFA10 dfa10 = new DFA10(this);
+    static final String DFA10_eotS =
+        "\12\uffff";
+    static final String DFA10_eofS =
+        "\12\uffff";
+    static final String DFA10_minS =
+        "\1\12\1\30\1\uffff\1\30\1\uffff\2\12\1\uffff\1\30\1\uffff";
+    static final String DFA10_maxS =
+        "\1\25\1\35\1\uffff\1\32\1\uffff\1\22\1\25\1\uffff\1\32\1\uffff";
+    static final String DFA10_acceptS =
+        "\2\uffff\1\3\1\uffff\1\4\2\uffff\1\1\1\uffff\1\2";
+    static final String DFA10_specialS =
+        "\12\uffff}>";
+    static final String[] DFA10_transitionS = {
+            "\1\1\7\uffff\1\3\2\uffff\1\2",
+            "\1\7\1\5\1\6\2\uffff\1\4",
+            "",
+            "\1\7\1\5\1\6",
+            "",
+            "\1\10\7\uffff\1\10",
+            "\1\7\12\uffff\1\11",
+            "",
+            "\1\7\1\5\1\6",
+            ""
+    };
+
+    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+    static final short[][] DFA10_transition;
+
+    static {
+        int numStates = DFA10_transitionS.length;
+        DFA10_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+        }
+    }
+
+    class DFA10 extends DFA {
+
+        public DFA10(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 10;
+            this.eot = DFA10_eot;
+            this.eof = DFA10_eof;
+            this.min = DFA10_min;
+            this.max = DFA10_max;
+            this.accept = DFA10_accept;
+            this.special = DFA10_special;
+            this.transition = DFA10_transition;
+        }
+        public String getDescription() {
+            return "105:3: ( exp | exp ',' ! VarRef | VarRef | namedArg )";
+        }
+    }
  
 
-    public static final BitSet FOLLOW_varDef_in_metaflow111 = new BitSet(new long[]{0x0000000020060400L});
+    public static final BitSet FOLLOW_varDef_in_metaflow111 = new BitSet(new long[]{0x0000000040060400L});
     public static final BitSet FOLLOW_mainflow_in_metaflow114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_varDef138 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_Identifier_in_varDef142 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_varDef144 = new BitSet(new long[]{0x0000000000040400L});
-    public static final BitSet FOLLOW_exp_in_varDef146 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_varDef148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_varDef176 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_varDef178 = new BitSet(new long[]{0x0000000000040400L});
-    public static final BitSet FOLLOW_exp_in_varDef180 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_varDef182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StdIn_in_mainflow223 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_exp_in_mainflow231 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_mainflow239 = new BitSet(new long[]{0x0000000040000400L});
-    public static final BitSet FOLLOW_flow_in_mainflow242 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_mainflow244 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_tee261 = new BitSet(new long[]{0x0000000040000400L});
-    public static final BitSet FOLLOW_flow_in_tee263 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_tee265 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_pipe_in_flow336 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_tee_in_flow344 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_31_in_flow358 = new BitSet(new long[]{0x0000000040000400L});
-    public static final BitSet FOLLOW_pipe_in_flow373 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_tee_in_flow383 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_qualifiedName_in_pipe424 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_22_in_pipe427 = new BitSet(new long[]{0x0000000000040400L});
-    public static final BitSet FOLLOW_pipeArgs_in_pipe429 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_pipe431 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atom_in_exp468 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_exp471 = new BitSet(new long[]{0x0000000000040400L});
-    public static final BitSet FOLLOW_atom_in_exp474 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_exp_in_pipeArgs518 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_namedArg_in_pipeArgs526 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_25_in_pipeArgs535 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_namedArg_in_pipeArgs538 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_Identifier_in_namedArg555 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_namedArg557 = new BitSet(new long[]{0x0000000000040400L});
-    public static final BitSet FOLLOW_exp_in_namedArg559 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_qualifiedName594 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_26_in_qualifiedName597 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_Identifier_in_qualifiedName599 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_30_in_varDef138 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_Identifier_in_varDef142 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_varDef144 = new BitSet(new long[]{0x0000000000040400L});
+    public static final BitSet FOLLOW_exp_in_varDef146 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_varDef148 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_varDef176 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_varDef178 = new BitSet(new long[]{0x0000000000040400L});
+    public static final BitSet FOLLOW_exp_in_varDef180 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_varDef182 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StdIn_in_mainflow223 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_exp_in_mainflow231 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_mainflow239 = new BitSet(new long[]{0x0000000080000400L});
+    public static final BitSet FOLLOW_flow_in_mainflow242 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_mainflow244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_tee261 = new BitSet(new long[]{0x0000000080000400L});
+    public static final BitSet FOLLOW_flow_in_tee263 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_tee265 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_pipe_in_flow336 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_tee_in_flow344 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_32_in_flow358 = new BitSet(new long[]{0x0000000080000400L});
+    public static final BitSet FOLLOW_pipe_in_flow373 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_tee_in_flow383 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_qualifiedName_in_pipe424 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_23_in_pipe427 = new BitSet(new long[]{0x0000000000240400L});
+    public static final BitSet FOLLOW_pipeArgs_in_pipe429 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_pipe431 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_exp468 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_25_in_exp471 = new BitSet(new long[]{0x0000000000040400L});
+    public static final BitSet FOLLOW_atom_in_exp474 = new BitSet(new long[]{0x0000000002000002L});
+    public static final BitSet FOLLOW_exp_in_pipeArgs518 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_exp_in_pipeArgs526 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_pipeArgs528 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_VarRef_in_pipeArgs531 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_VarRef_in_pipeArgs539 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_namedArg_in_pipeArgs547 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_26_in_pipeArgs556 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_namedArg_in_pipeArgs559 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_Identifier_in_namedArg576 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_namedArg578 = new BitSet(new long[]{0x0000000000040400L});
+    public static final BitSet FOLLOW_exp_in_namedArg580 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_qualifiedName615 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27_in_qualifiedName618 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_Identifier_in_qualifiedName620 = new BitSet(new long[]{0x0000000008000002L});
 
 }

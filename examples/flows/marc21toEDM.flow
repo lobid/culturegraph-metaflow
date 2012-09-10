@@ -1,9 +1,13 @@
 
-default idn = "1021191485";
+default idn = "997724587";
+default rights = "";
 
 idn|
 template("https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}")| 
 open("http")|
 read("marcxml")|
-stream-to-xml("examples/morph/Marc21-EDM.xml", recordtag="rdf:RDF")|
-write("file://test.xml");
+morph("examples/morph/Marc21-EDM.xml", *)|
+add-oreaggregation|
+rdf-macros|
+stream-to-xml(roottag="rdf:RDF", recordtag="", namespacefile="examples/properties/edm-namespaces.properties")|
+write("stdout");

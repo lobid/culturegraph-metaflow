@@ -1,0 +1,11 @@
+default idn = "1021191485";
+default morph = "examples/morph/ingest.marc21.xml";
+
+
+idn |
+template("https://portal.dnb.de/opac.htm?method=requestMarcXml&idn=${obj}")| 
+open("http")|
+read("marcxml")|
+morph(morph)|
+encode("pretty-print")|
+write("stdout");

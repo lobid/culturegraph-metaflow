@@ -1,5 +1,0 @@
-default table = "gnd_pers";
-default id = "100636438";
-default host = "borges";
-
-table + "/row/" + id | from-hbase(host) | encode("pretty-print") | write("stdout");

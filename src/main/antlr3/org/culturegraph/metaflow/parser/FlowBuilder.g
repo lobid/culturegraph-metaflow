@@ -11,6 +11,8 @@ package org.culturegraph.metaflow.parser;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import org.culturegraph.metaflow.Flow;
 import org.culturegraph.metaflow.MetaFlowException;
@@ -86,7 +88,7 @@ tee
       
        {
         flow.endSubFlow();
-       // System.out.println("end subflow");
+        // System.out.println("end subflow");
        }
     )+
    )
@@ -128,22 +130,34 @@ exp returns [String value]
 
 pipe
 @init {
-final Map<String, String> args = new HashMap<String, String>();
+final Map<String, String> namedArgs = new HashMap<String, String>();
+final List<Object> cArgs = new ArrayList<Object>();
 }
   :
   ^(
-    name=QualifiedName carg=exp?
+    name=QualifiedName
+    (
+      e=exp 
+            {
+             cArgs.add($e.value);
+            }
+    )?
+    (
+      VarRef 
+             {
+              cArgs.add(Collections.unmodifiableMap(vars));
+             }
+    )?
     (
       a=arg 
             {
-             args.put($a.key, $a.value);
+             namedArgs.put($a.key, $a.value);
             }
     )*
    )
   
    {
-    flow.addElement(flow.createElement($name.text, args, $carg.value));
-    //System.out.println("adding " + $name.text);
+    flow.addElement(flow.createElement($name.text, namedArgs, cArgs));
    }
   ;
 

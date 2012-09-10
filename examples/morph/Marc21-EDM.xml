@@ -3,20 +3,25 @@
 	version="1">
 	<meta>
 		<name>Marc21 to EDM</name>
-
 	</meta>
 
+	<vars>
+		<var name="rights" value="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+	</vars>
+	
 	<rules>
-		<entity name="ore:Aggregation">
-			<entity name="edm:aggregatedCHO">
-				<data name="~rdf:resource" source="_id">
-					<compose prefix="http://www.dnb.de/" />
-				</data>
-			</entity>
-		</entity>
+		<data source="001" name="aggregation_id">
+			<compose prefix="http://www.dnb.de/" />
+		</data>
 
+		<data source="_id" name="edm:provider">
+			<constant value="DNB" />
+		</data>
+		<data name="*edm:rights" source="_id">
+			<constant value="$[rights]" />
+		</data>
 
-		<entity name="edm:aggregatedCHO" flushWith="record">
+		<entity name="edm:ProvidedCHO" flushWith="record">
 			<combine name="~rdf:about" value="${url}${id}">
 				<data name="id" source="001" />
 				<data name="url" source="003">
@@ -25,7 +30,7 @@
 					</lookup>
 				</data>
 			</combine>
-			
+
 			<data name="dc:publisher" source="2603 .b" />
 			<data name="dc:creator" source="1001 .a" />
 			<data name="dc:creator" source="1001 .0">
@@ -33,21 +38,16 @@
 			</data>
 
 			<group name="dc:subject">
-				<data source="650?7.0">
-					<regexp match="^\(DE-588.?\)((.*))" format="${1}" />
-				</data>
-				<data source="60017.0">
-					<regexp match="^\(DE-588.?\)((.*))" format="${1}" />
-				</data>
-				<data source="6890?.0">
-					<regexp match="^\(DE-588.?\)((.*))" format="${1}" />
-				</data>
+				<data source="650?7.0" />
+				<data source="60017.0" />
+				<data source="6890?.0" />
 				<postprocess>
+					<regexp match="^\(DE-588.?\)((.*))" format="${1}" />
 					<compose prefix="http://d-nb.info/gnd/" />
 				</postprocess>
 			</group>
 
-			<group name="dc:subject">
+			<group name="dc:subject$de">
 				<data source="650?7.a" name="dcterms:subject" />
 				<data source="60017.a" name="dcterms:subject" />
 				<data source="6890?.a" name="dcterms:subject" />
@@ -66,6 +66,7 @@
 				<data source="260  .c" />
 				<data source="2603 .c" />
 			</group>
+
 			<data name="dcterms:extent" source="300  .a" />
 
 			<data name="dc:type" source="_id">
@@ -73,34 +74,17 @@
 			</data>
 
 		</entity>
-	
-		
+
+
 		<entity name="edm:WebResource" flushWith="record">
 			<data name="~rdf:about" source="85640.u">
 				<replace pattern="http://nbn-resolving.de/" with="" />
 			</data>
-			
-			<combine name="edm:ShownAt" value="${url}${id}">
-				<data name="id" source="001" />
-				<data name="url" source="003">
-					<lookup>
-						<entry name="DE-101" value="http://d-nb.info/" />
-					</lookup>
-				</data>
-			</combine>
 			<data name="edm:ShownBy" source="85640.u" />
 		</entity>
 	</rules>
 
 	<maps>
-		<map name="namespaces">
-			<entry name="rdf" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
-			<entry name="edm" value="http://www.europeana.eu/schemas/edm/" />
-			<entry name="dcterms" value="http://purl.org/dc/terms/" />
-			<entry name="dc" value="http://purl.org/dc/elements/1.1/" />
-			<entry name="skos" value="http://www.w3.org/2004/02/skos/core#" />
-			<entry name="oai" value="http://www.openarchives.org/OAI/2.0/" />
-			<entry name="ore" value="http://www.openarchives.org/ore/terms/" />
-		</map>
+
 	</maps>
 </metamorph>	

@@ -104,6 +104,8 @@ pipeArgs
   :
   (
     exp
+    | exp ','! VarRef
+    | VarRef
     | namedArg
   )
   (','! namedArg)*
@@ -119,6 +121,11 @@ namedArg
 qualifiedName
   :
   Identifier ('.' Identifier)*
+  ;
+
+VarRef
+  :
+  '*'
   ;
 
 Identifier

@@ -51,25 +51,19 @@ public final class Flow {
 	private ObjectReceiver<? extends Object> start;
 	private boolean joinLooseEnds;
 
-	public LifeCycle createElement(final String name, final Map<String, String> args) {
-		return createElement(name, args, new Object[0]);
-	}
+//	public LifeCycle createElement(final String name, final Map<String, String> args) {
+//		return createElement(name, args, Collections.emptyList());
+//	}
 
-	public LifeCycle createElement(final String name, final Map<String, String> args, final Object cArg) {
-		final Object[] cArgs;
-		if (cArg == null) {
-			cArgs = new Object[0];
-		} else {
-			cArgs = new Object[] { cArg };
-		}
+	public LifeCycle createElement(final String name, final Map<String, String> namedArgs, final List<Object> cArgs) {
 
 		final LifeCycle newElement;
 		if (PIPE_FACTORY.containsKey(name)) {
-			newElement = PIPE_FACTORY.newInstance(name, args, cArgs);
+			newElement = PIPE_FACTORY.newInstance(name, namedArgs, cArgs.toArray());
 
 		} else {
-			newElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), cArgs);
-			ObjectFactory.applySetters(newElement, args);
+			newElement = ObjectFactory.newInstance(ObjectFactory.loadClass(name, LifeCycle.class), cArgs.toArray());
+			ObjectFactory.applySetters(newElement, namedArgs);
 		}
 		return newElement;
 	}

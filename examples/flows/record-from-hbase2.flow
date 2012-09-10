@@ -1,4 +1,0 @@
-default table = "overlap";
-default host = "localhost";
-
-table + "/scanner" | from-hbase(host) | encode("pretty-print") | write("stdout");
