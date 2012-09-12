@@ -1,2 +1,2 @@
 @echo off
-java -jar %~dp0metaflow-0.0.5-SNAPSHOT.jar %*
+java -jar %~dp0metaflow-0.0.6-SNAPSHOT.jar %*
