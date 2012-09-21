@@ -1,0 +1,11 @@
+
+//default out = "stdout";
+default out = "file://GND-EDM.xml";
+default filetype="gzip";
+
+file| 
+open(filetype)|
+read("pica")|
+morph("examples/morph/GND-EDM.xml")|
+stream-to-xml(roottag="rdf:RDF", recordtag="", namespacefile="examples/properties/edm-namespaces.properties")|
+write(out);

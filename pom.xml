@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.culturegraph</groupId>
 	<artifactId>metaflow</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -255,6 +255,7 @@
 						<version>2.3.2</version>
 						<configuration>
 							<threshold>High</threshold>
+ 							<excludeFilterFile>${basedir}/quality_assurance/findbugs-exclude.xml</excludeFilterFile>
 
 							<findbugsXmlOutput>true</findbugsXmlOutput>
 						</configuration>

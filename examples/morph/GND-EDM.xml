@@ -3,7 +3,6 @@
 	version="1">
 	<meta>
 		<name>GND to EDM</name>
-
 	</meta>
 
 	<rules>
@@ -33,7 +32,7 @@
 				<data source="028A.c|028@.c" name="prefix">
 					<compose prefix=" " />
 				</data>
-				<concat name="addition" prefix=" &amp;lt;" postfix="&amp;gt;"
+				<concat name="addition" prefix=" &lt;" postfix="&gt;"
 					delimiter=", " flushWith="028A|028@" reset="true">
 					<data source="028A.n|028@.n" />
 					<data source="028A.l|028@.l" />
@@ -120,8 +119,27 @@
 				</postprocess>
 			</combine>
 			<group>
-				<data source="029A.a|030A.a" name="skos:prefLabel" />
-				<data source="029@.a|030@.a" name="skos:altLabel" />
+				<combine name="skos:prefLabel" value="${name}${add}${uber}"
+					flushWith="029A|030A">
+					<data source="029A.a|030A.a" name="name" />
+					<data source="029A.g|030A.g" name="add">
+						<compose prefix=" &lt;" postfix="&gt;" />
+					</data>
+					<data source="029A.b|030A.b" name="uber">
+						<compose prefix=" / " />
+					</data>
+				</combine>
+
+				<combine name="skos:altLabel" value="${name}${add}${uber}"
+					flushWith="029@|030@">
+					<data source="029@.a|030@.a" name="name" />
+					<data source="029@.g|030@.g" name="add">
+						<compose prefix=" &lt;" postfix="&gt;" />
+					</data>
+					<data source="029@.b|030@.b" name="uber">
+						<compose prefix=" / " />
+					</data>
+				</combine>
 			</group>
 		</entity>
 

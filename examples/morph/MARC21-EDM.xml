@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	version="1">
+	<meta>
+		<name>Marc21 to EDM</name>
+	</meta>
+
+	<rules>
+		<data source="leader" name="@leader7">
+			<substring start="7" end="8" />
+		</data>
+		<data source="leader" name="@leader6">
+			<substring start="6" end="7" />
+		</data>
+
+		<data source="001" name="aggregation_id">
+			<compose prefix="http://www.dnb.de/" />
+		</data>
+
+		<!-- mandatory ELIB -->
+		<choose name="@isil">
+			<data source="003" />
+			<!-- BSB -->
+			<data source="040" />
+		</choose>
+
+		<data name="edm:dataProvider" source="@isil">
+			<lookup in="isils" />
+		</data>
+
+		<!-- hier Datenprovider immer identisch mit Provider des Objekts? derzeit 
+			auch für BSZ so gehandhabt, obwohl Aggregator -->
+
+		<data name="edm:provider" source="@isil">
+			<lookup in="isils" />
+		</data>
+
+
+		<!-- DC:TYPE -->
+
+		<!-- Books when Leader/06 contains code a (Language material) or t (Manuscript 
+			language material) AND Leader/07 (Bibliographic level) contains code a (Monographic 
+			component part), c (Collection), d (Subunit), or m (Monograph). -->
+
+		<combine name="@mat" value="book">
+			<data source="@leader6">
+				<whitelist>
+					<entry name="a" />
+					<entry name="t" />
+				</whitelist>
+			</data>
+			<data source="@leader7">
+				<whitelist>
+					<entry name="a" />
+					<entry name="c" />
+					<entry name="d" />
+					<entry name="m" />
+				</whitelist>
+			</data>
+		</combine>
+
+
+		<!-- Music when Leader/06 contains code c (Notated music), d (Manuscript 
+			notated music), i (Nonmusical sound recording), or j (Musical sound recording). -->
+		<data name="@mat" source="@leader6">
+			<whitelist>
+				<entry name="c" />
+				<entry name="d" />
+				<entry name="i" />
+				<entry name="j" />
+			</whitelist>
+			<constant value="music" />
+		</data>
+
+
+
+		<!-- Visual materials used when Leader/06 contains code g (Projected medium), 
+			code k (Two-dimensional nonprojectable graphic, code o (Kit), or code r (Three-dimensional 
+			artifact or naturally occurring object). -->
+		<data name="@mat" source="@leader6">
+			<whitelist>
+				<entry name="g" />
+				<entry name="k" />
+				<entry name="o" />
+				<entry name="r" />
+			</whitelist>
+			<constant value="visual" />
+		</data>
+
+		<!-- Computer files when Leader/06 contains code m. -->
+		<data name="@mat" source="@leader6">
+			<whitelist>
+				<entry name="m" />
+			</whitelist>
+			<constant value="file" />
+		</data>
+
+		<!-- Continuing resources when Leader/06 contains code a (Language material) 
+			AND Leader/07 contains code b (Serial component part), i (Integrating resource), 
+			or code s (Serial). -->
+		<combine name="@mat" value="continuing resource">
+			<data source="@leader6">
+				<whitelist>
+					<entry name="a" />
+				</whitelist>
+			</data>
+			<data source="@leader7">
+				<whitelist>
+					<entry name="b" />
+					<entry name="i" />
+					<entry name="s" />
+				</whitelist>
+			</data>
+		</combine>
+
+
+		<!-- mandatory ELIB, if edm:isShownBy is not provided -->
+		<combine name="edm:isShownAt" value="${url}${id}${suffix}">
+			<data name="id" source="001" />
+			<data name="url" source="@isil">
+				<lookup in="urls" />
+			</data>
+			<data name="suffix" source="@isil">
+				<lookup in="suffix" />
+			</data>
+		</combine>
+
+		<!-- mandatory ELIB, edm:object für Binärcontent, z. B. Thumbnails für 
+			Preview in Europeana, Problem: interner Binärcontent und Frage an Europeana: 
+			Ableitung von PDF zu jpg? <data name="edm:object" source="" /> -->
+
+
+
+		<!-- mandatory ELIB, richtig verortet? in ELIB unter WebResource, in EDM 
+			Mapping Guidelines unter WebRessource (recommended) und unter ore:aggregation 
+			(mandatory) ; values s. http://pro.europeana.eu/documents/900548/0d423921-23e0-45fa-82a4-2ac72b3e6f38 
+			; value für DNB-Objekte mit "Der Zugriff auf das Objekt ist unbeschränkt 
+			möglich." = zunächst http://www.europeana.eu/portal/rr-f.html gewählt, zu 
+			prüfen, ob ok! -->
+		<data name="edm:rights" source="@isil">
+			<lookup in="rights" />
+		</data>
+
+
+		<!-- mandatory ELIB -->
+
+		<entity name="edm:ProvidedCHO" flushWith="record">
+			<combine name="~rdf:about" value="${url}${id}">
+				<data name="id" source="001" />
+				<data name="url" source="@isil">
+					<lookup in="urls" />
+				</data>
+				<data name="suffix" source="@isil">
+					<lookup in="suffix" />
+				</data>
+			</combine>
+
+			<data source="@mat" name="dc:type" />
+			<data source="@mat" name="edm:type" />
+
+			<data name="dc:publisher" source="2603 .b" />
+
+			<choose flushWith="1001 ">
+				<data name="*dc:creator" source="1001 .0">
+					<regexp match="^\(DE-588\)(.*)" format="http://d-nb.info/gnd/${1}" />
+				</data>
+				<data name="dc:creator" source="1001 .a" />
+			</choose>
+
+			<choose flushWith="7001 ">
+				<data name="*dc:contributor" source="7001 .0">
+					<regexp match="^\(DE-588\)(.*)" format="http://d-nb.info/gnd/${1}" />
+				</data>
+				<data name="dc:contributor" source="7001 .a" />
+			</choose>
+
+			<choose flushWith="1101 ">
+				<data name="*dc:creator" source="1101 .0">
+					<regexp match="^\(DE-588\)(.*)" format="http://d-nb.info/gnd/${1}" />
+				</data>
+				<data name="dc:creator" source="1101 .a" />
+			</choose>
+
+			<choose flushWith="7101 ">
+				<data name="*dc:contributor" source="7101 .0">
+					<regexp match="^\(DE-588\)(.*)" format="http://d-nb.info/gnd/${1}" />
+				</data>
+				<data name="dc:contributor" source="7101 .a" />
+			</choose>
+
+
+			<data name="*dc:subject" source="60017.0|61017.0|650?7.0">
+				<regexp match="^\(DE-588\)((.*))" format="${1}" />
+				<compose prefix="http://d-nb.info/gnd/" />
+			</data>
+
+			<data name="dc:subject$de" source="650?7.a|60017.a|61017.a|61017.b|655?7.a" />
+
+			<combine name="dc:title" value="${title} : ${othtitleinfo}">
+				<data name="title" source="24510.a" />
+				<data name="othtitleinfo" source="24510.b" />
+			</combine>
+
+			<data name="dcterms:issued" source="260  .c|2603 .c" />
+
+			<data name="dcterms:extent" source="300  .a" />
+
+		</entity>
+
+		<entity name="edm:WebResource">
+			<!-- mandatory ELIB, if edm:isShownAt is not provided ; nur if subfield 
+				x = "Langzeitarchivierung" - wie abfragen? -->
+			<choose>
+				<combine name="~rdf:about" value="${urn}">
+					<data name="urn" source="85640.u"/>
+					<data source="85640.x">
+						<regexp match="^Langzeitarchivierung" />
+					</data>
+				</combine>
+				<combine name="~rdf:about" value="${urn}">
+					<data name="urn" source="85640.u" />
+					<data source="85640.x">
+						<equals string="Resolving-System" />
+					</data>
+				</combine>
+			</choose>
+		</entity>
+	</rules>
+
+	<maps>
+		<map name="rights">
+			<entry name="DE-101" value="http://www.europeana.eu/portal/rr-f.html" />
+		</map>
+
+		<map name="isils">
+			<entry name="DE-101" value="Deutsche Nationalbibliothek" />
+		</map>
+
+		<map name="urls">
+			<entry name="DE-101" value="http://d-nb.info/" />
+		</map>
+
+		<map name="suffix" default="">
+
+		</map>
+	</maps>
+
+</metamorph>

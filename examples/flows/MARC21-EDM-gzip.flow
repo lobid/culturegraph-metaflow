@@ -1,0 +1,14 @@
+default out = "stdout";
+
+//default out = "file://dnb-data-edm.xml";
+
+file|
+open("gzip")|
+read("marcxml")|
+morph("examples/morph/MARC21-EDM.xml", *)|
+add-oreaggregation|
+rdf-macros|
+//batch-log(batchsize="1000")|
+//batch-reset(batchsize="1000")|
+stream-to-xml(roottag="rdf:RDF", recordtag="", namespacefile="examples/properties/edm-namespaces.properties")|
+write(out);
