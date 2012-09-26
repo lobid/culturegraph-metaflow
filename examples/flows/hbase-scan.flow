@@ -1,4 +1,8 @@
-default table = "overlap";
+default table = "cg";
 default host = "localhost";
 
-table + "/scanner" | from-hbase(host) | encode("pretty-print") | write("stdout");
+table + "/scanner?startRow=BVB&stopRow=BVB-BV000001836" | from-hbase(host) | 
+
+
+
+encode("pretty-print") | write("stdout");

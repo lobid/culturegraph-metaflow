@@ -1,9 +1,8 @@
 default out = "stdout";
-
-//default out = "file://dnb-data-edm.xml";
+default file = "examples/data/Test_DNB_Mono.xml";
 
 file|
-open("gzip")|
+open("file")|
 read("marcxml")|
 morph("examples/morph/MARC21-EDM.xml", *)|
 add-oreaggregation|

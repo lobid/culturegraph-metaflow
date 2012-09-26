@@ -1,0 +1,5 @@
+default table = "cg";
+default host = "borges";
+
+table + "/scanner?startRow=GBV" | from-hbase(host) | 
+stream-to-index("D://workspace/org.culturegraph.cluster/src/main/resources/indexing/datastore.xml", indexpath="C://cg_ix");
