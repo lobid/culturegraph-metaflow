@@ -17,12 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import antlr.RecognitionException;
-
 /**
  * @author "Markus Michael Geipel"
- * 
+ * @deprecated unfinished and not used
  */
+@Deprecated
 public final class MetaflowGui extends JFrame {
 
 	private final JButton openButton;
