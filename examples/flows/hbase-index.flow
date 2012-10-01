@@ -1,5 +1,6 @@
 default table = "cg";
 default host = "borges";
+default path = "G://cg_ix";
 
 table + "/scanner?startRow=GBV" | from-hbase(host) | 
-stream-to-index("D://workspace/org.culturegraph.cluster/src/main/resources/indexing/datastore.xml", indexpath="C://cg_ix");
+stream-to-index("D://workspace/org.culturegraph.cluster/src/main/resources/indexing/datastore.xml", indexpath=path);
