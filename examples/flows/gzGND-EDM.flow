@@ -1,9 +1,10 @@
 
 //default out = "stdout";
-default out = "file://GND-EDM.xml";
+default out = "file://G:/bib_data/EDM/GND-EDM.xml";
+default in = "G:/bib_data/EDM/GNDpersonen.dat.gz";
 default filetype="gzip";
 
-file| 
+in| 
 open(filetype)|
 read("pica")|
 morph("examples/morph/GND-EDM.xml")|

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	version="1">
+	<meta>
+		<name>Mets Mods to EDM</name>
+	</meta>
+
+	<rules>
+		<combine name="aggregation_id" value="${source}${value}"
+			sameEntity="true">
+			<data source="*.mods.recordInfo.recordIdentifier.source" name="source" />
+			<data source="*.mods.recordInfo.recordIdentifier.value" name="value" />
+		</combine>
+
+		<entity name="edm:ProvidedCHO" flushWith="record">
+			<choose>
+				<combine name="~rdf:about" value="${id}" sameEntity="true">
+					<data source="*.mods.identifier.value" name="id" />
+					<data source="*.mods.identifier.type" name="test">
+						<equals string="purl" />
+					</data>
+				</combine>
+			</choose>
+
+			<data source="*.mods.originInfo.publisher.value" name="dc:publisher" />
+			<data source="*.mods.titleInfo.title.value" name="dc:title" />
+		</entity>
+
+	</rules>
+
+	<maps>
+		<map name="rights">
+			<entry name="DE-101" value="http://www.europeana.eu/portal/rr-f.html" />
+		</map>
+
+		<map name="isils">
+			<entry name="DE-101" value="Deutsche Nationalbibliothek" />
+		</map>
+
+		<map name="urls">
+			<entry name="DE-101" value="http://d-nb.info/" />
+		</map>
+
+		<map name="suffix" default="">
+
+		</map>
+	</maps>
+
+</metamorph>
