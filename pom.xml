@@ -31,11 +31,11 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>org.culturegraph</groupId>
-			<artifactId>semanticweb</artifactId>
-			<version>0.4-SNAPSHOT</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.culturegraph</groupId> -->
+<!-- 			<artifactId>semanticweb</artifactId> -->
+<!-- 			<version>0.4-SNAPSHOT</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.culturegraph</groupId>
 			<artifactId>search</artifactId>
