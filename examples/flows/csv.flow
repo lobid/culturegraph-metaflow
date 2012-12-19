@@ -1,0 +1,9 @@
+default file = "examples/data/counts.csv";
+default morph = "examples/morph/counts.xml";
+
+file|
+open("file")|
+read("csv")|
+morph(morph)|
+encode("pretty-print")|
+write("stdout");

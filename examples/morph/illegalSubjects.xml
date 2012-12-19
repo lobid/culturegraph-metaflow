@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1">
+
+	<meta>
+		<name>CSV with count data</name>
+	</meta>
+	<rules>
+
+
+
+		<combine name="" value="${ttl};${subj}" reset="false">
+			<data source="ttl" name="ttl">
+				<buffer />
+			</data>
+			<data source="_id" name="subj"/>
+			<choose name="exists">
+				<data source="exists"/>
+				<data source="_id">
+					<constant value="false"/>
+				</data>
+				<postprocess>
+					<equals string="false"/>
+				</postprocess>
+			</choose>			
+		</combine>
+	</rules>
+</metamorph>

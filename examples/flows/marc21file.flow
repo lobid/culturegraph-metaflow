@@ -1,5 +1,8 @@
-"examples/data/10.marc21"|
-open("file")|
+default file = "examples/data/10.marc21";
+default type = "file";
+
+file|
+open(type)|
 read("marc21")|
 encode("pretty-print")|
 write("stdout");

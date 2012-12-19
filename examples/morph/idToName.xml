@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	version="1" entityMarker=".">
+	<meta>
+		<name>Umsetzung der GND Personen</name>
+	</meta>
+	<rules>
+
+		<data source="002@.0" name="@type">
+			<substring start="1" end="2" />
+		</data>
+
+		<data source="008A.a" name="@s">
+			<equals string="s" />
+		</data>
+
+		<combine name="${id}&#9;" value="${value}">
+			<data source="@s" />
+			<data name="id" source="007K.0" />
+			<data source="@type">
+				<regexp match="[pn]" />
+			</data>
+			<combine name="value"
+				value="${personalname}${surname}${forename}${prefix}${addition}"
+				flushWith="028A" reset="true">
+
+				<data source="028A.P" name="personalname" />
+				<data source="028A.a" name="surname" />
+				<data source="028A.d" name="forename">
+					<compose prefix=", " />
+				</data>
+				<data source="028A.c" name="prefix">
+					<compose prefix=" " />
+				</data>
+				<concat name="addition" prefix=" &lt;" postfix="&gt;"
+					delimiter=", " flushWith="028A" reset="true">
+					<data source="028A.n" />
+					<data source="028A.l" />
+					<data source="028A.g" />
+				</concat>
+			</combine>
+		</combine>
+
+		<combine name="${id}&#9;" value="${value}">
+			<data source="@s" />
+			<data name="id" source="007K.0" />
+			<data source="@type">
+				<equals string="u" />
+			</data>
+			<combine name="value" value="${title}${author}" flushWith="record">
+				<choose>
+					<combine name="author"
+						value=" (${personalname}${surname}${forename}${prefix}${addition})"
+						flushWith="028R" reset="true">
+						<data source="028R.P" name="personalname" />
+						<data source="028R.a" name="surname" />
+						<data source="028R.d" name="forename">
+							<compose prefix=", " />
+						</data>
+						<data source="028R.c" name="prefix">
+							<compose prefix=" " />
+						</data>
+						<concat name="addition" prefix=" &lt;" postfix="&gt;"
+							delimiter=", " flushWith="028R" reset="true">
+							<data source="028R.n" />
+							<data source="028R.l" />
+							<data source="028R.g" />
+						</concat>
+					</combine>
+					<combine name="author"
+						value=" (${personalname}${surname}${forename}${prefix}${addition})"
+						flushWith="028A" reset="true">
+						<data source="028A.P" name="personalname" />
+						<data source="028A.a" name="surname" />
+						<data source="028A.d" name="forename">
+							<compose prefix=", " />
+						</data>
+						<data source="028A.c" name="prefix">
+							<compose prefix=" " />
+						</data>
+						<concat name="addition" prefix=" &lt;" postfix="&gt;"
+							delimiter=", " flushWith="028A" reset="true">
+							<data source="028A.n" />
+							<data source="028A.l" />
+							<data source="028A.g" />
+						</concat>
+					</combine>
+				</choose>
+				<data source="022A.a" name="title" />
+			</combine>
+		</combine>
+
+
+
+		<combine name="${id}&#9;" value="${value}">
+			<data source="@s" />
+			<data name="id" source="007K.0" />
+			<data source="@type">
+				<regexp match="[fb]" />
+			</data>
+			<combine name="value" value="${name}${add}${uber}" flushWith="029A|030A">
+
+				<data source="029A.a|030A.a" name="name" />
+				<data source="029A.g|030A.g" name="add">
+					<compose prefix=" &lt;" postfix="&gt;" />
+				</data>
+				<data source="029A.b|030A.b" name="uber">
+					<compose prefix=" / " />
+				</data>
+			</combine>
+		</combine>
+
+
+		<combine name="${id}&#9;" value="${value}">
+			<data source="@s" />
+			<data name="id" source="007K.0" />
+			<data source="@type">
+				<equals string="s" />
+			</data>
+			<data source="041A.a" name="value" />
+		</combine>
+
+
+
+
+
+		<combine name="${id}&#9;" value="${value}">
+			<data source="@s" />
+			<data name="id" source="007K.0" />
+			<data source="@type">
+				<equals string="g" />
+			</data>
+			<data source="065A.a" name="value" />
+		</combine>
+
+
+
+	</rules>
+
+	<maps>
+	</maps>
+</metamorph>

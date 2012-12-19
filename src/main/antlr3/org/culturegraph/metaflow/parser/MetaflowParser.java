@@ -1,4 +1,4 @@
-// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g 2012-09-21 16:57:44
+// $ANTLR 3.4 D:\\workspace\\org.culturegraph.metaflow\\src\\main\\antlr3\\org\\culturegraph\\metaflow\\parser\\Metaflow.g 2012-12-11 12:56:54
 
 package org.culturegraph.metaflow.parser;
 
@@ -258,7 +258,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: exp, Identifier
+                    // elements: Identifier, exp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -316,7 +316,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: exp, Identifier
+                    // elements: Identifier, exp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1311,7 +1311,7 @@ public TreeAdaptor getTreeAdaptor() {
             stream_exp.add(exp41.getTree());
 
             // AST REWRITE
-            // elements: Identifier, exp
+            // elements: exp, Identifier
             // token labels: 
             // rule labels: retval
             // token list labels: 

@@ -1,9 +1,11 @@
 
 default file = "examples/data/GNDsample.pica";
+default morph = "T_simple.xml";
 
 file| 
 open("file")|
 read("pica")|
-morph("examples/morph/GND-EDM.xml")|
-stream-to-xml(roottag="rdf:RDF", recordtag="", namespacefile="examples/properties/edm-namespaces.properties")|
+morph("examples/morph/" + morph)|
+//stream-to-xml(roottag="rdf:RDF", recordtag="", namespacefile="examples/properties/edm-namespaces.properties")|
+encode("pretty-print")|
 write("stdout");

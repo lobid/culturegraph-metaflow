@@ -31,8 +31,8 @@
 		<!-- hier Datenprovider immer identisch mit Provider des Objekts? derzeit 
 			auch für BSZ so gehandhabt, obwohl Aggregator -->
 
-		<data name="edm:provider" source="@isil">
-			<lookup in="isils" />
+		<data name="edm:provider" source="_id">
+			<constant value="http://www.deutsche-digitale-bibliothek.de"/>
 		</data>
 
 
@@ -42,7 +42,7 @@
 			language material) AND Leader/07 (Bibliographic level) contains code a (Monographic 
 			component part), c (Collection), d (Subunit), or m (Monograph). -->
 
-		<combine name="@mat" value="book">
+		<combine name="@mat" value="TEXT">
 			<data source="@leader6">
 				<whitelist>
 					<entry name="a" />
@@ -69,7 +69,7 @@
 				<entry name="i" />
 				<entry name="j" />
 			</whitelist>
-			<constant value="music" />
+			<constant value="SOUND" />
 		</data>
 
 
@@ -78,13 +78,12 @@
 			code k (Two-dimensional nonprojectable graphic, code o (Kit), or code r (Three-dimensional 
 			artifact or naturally occurring object). -->
 		<data name="@mat" source="@leader6">
-			<whitelist>
-				<entry name="g" />
-				<entry name="k" />
-				<entry name="o" />
-				<entry name="r" />
-			</whitelist>
-			<constant value="visual" />
+			<lookup>
+				<entry name="g" value="IMAGE"/>
+				<entry name="k" value="IMAGE"/>
+				<entry name="o" value="IMAGE"/>
+				<entry name="r" value="IMAGE"/>
+			</lookup>
 		</data>
 
 		<!-- Computer files when Leader/06 contains code m. -->
@@ -203,7 +202,9 @@
 
 			<data name="dcterms:issued" source="260  .c|2603 .c" />
 
-			<data name="dcterms:extent" source="300  .a" />
+			<data name="dcterms:format" source="300  .a" >
+				<replace pattern="Ressource" with="Resource"/>
+			</data>
 
 		</entity>
 
@@ -229,7 +230,7 @@
 
 	<maps>
 		<map name="rights">
-			<entry name="DE-101" value="http://www.europeana.eu/portal/rr-f.html" />
+			<entry name="DE-101" value="http://www.europeana.eu/rights/rr-f" />
 		</map>
 
 		<map name="isils">

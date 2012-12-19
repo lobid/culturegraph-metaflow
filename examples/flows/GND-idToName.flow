@@ -1,0 +1,13 @@
+
+default file = "examples/data/GNDsample.pica";
+default morph = "idToName.xml";
+default out = "file://H:/bib_data/GND-id-name2.txt";
+default in = "H:/bib_data/GND.dat.gz";
+default filetype = "gzip";
+
+in| 
+open(filetype)|
+read("pica")|
+morph("examples/morph/" + morph)|
+encode("literals")|
+write(out);

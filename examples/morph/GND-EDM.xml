@@ -10,7 +10,7 @@
 			<substring start="1" end="2" />
 		</data>
 
-		<entity name="edm:Actor">
+		<entity name="edm:Agent">
 			<combine name="~rdf:about" value="${id}">
 				<data name="id" source="003U.a" />
 				<data source="@type">

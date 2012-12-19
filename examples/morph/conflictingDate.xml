@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamorph xmlns="http://www.culturegraph.org/metamorph"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1">
+
+	<meta>
+		<name></name>
+	</meta>
+	<rules>
+
+
+
+
+		<combine name="" value="${id} ${birth} ${death} ">
+
+			<data source="_id" name="id" />
+
+			<group>
+				<concat delimiter=" vs " name="death">
+					<group>
+						<data name="death" source="cg:death">
+							<regexp match="\d\d\d\d?" />
+						</data>
+
+						<data name="wiki" source="cg:dewp_cat">
+							<regexp match="^[gG]estorben\W*(\d\d\d\d?)" format="${1}" />
+							<occurrence only="1"/>
+						</data>
+						<postprocess>
+							<unique />
+						</postprocess>
+					</group>
+					<postprocess>
+						<regexp match=".*vs.*" />
+						<compose prefix="death "  postfix=";"/>
+					</postprocess>
+				</concat>
+
+
+				<concat delimiter=" vs " name="birth">
+					<group>
+
+						<data name="birth" source="cg:birth">
+							<regexp match="\d\d\d\d?" />
+						</data>
+
+
+						<data name="wiki" source="cg:dewp_cat">
+							<regexp match="^[gG]eboren\W*(\d\d\d\d?)" format="${1}" />
+							<occurrence only="1"/>
+						</data>
+						<postprocess>
+							<unique />
+						</postprocess>
+
+					</group>
+					<postprocess>
+						<regexp match=".*vs.*" />
+						<compose prefix="birth " postfix=";"/>
+					</postprocess>
+				</concat>
+			</group>
+		</combine>
+
+
+	</rules>
+
+</metamorph>

@@ -1,0 +1,8 @@
+// reads a wikipedia page from a file
+
+dump | 
+open("gzip")|
+analyze-wp("examples/dewikipedia/analyzer.conf")|
+//morph("")|
+encode("litterals")|
+write("stdout");
