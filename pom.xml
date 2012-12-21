@@ -11,6 +11,31 @@
 		<junit.version>4.8.2</junit.version>
 		<antlr.version>3.4</antlr.version>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>lobid-snapshots</id>
+			<url>http://lobid.github.com/snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>lobid-releases</id>
+			<url>http://lobid.github.com/releases/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
+	<!-- release with: mvn clean deploy -DperformRelease=true -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>lobid-snapshots</id>
+			<url>file:///${basedir}/../lobid.github.com/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 
@@ -36,6 +61,19 @@
 <!-- 			<artifactId>semanticweb</artifactId> -->
 <!-- 			<version>0.4-SNAPSHOT</version> -->
 <!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>org.culturegraph</groupId>
+			<artifactId>metastream</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.culturegraph</groupId>
+			<artifactId>metamorph</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.culturegraph</groupId>
 			<artifactId>search</artifactId>
